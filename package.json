@@ -4,20 +4,27 @@
   "description": "portfolio",
   "main": "server.js",
   "scripts": {
+    "client-install": "npm install --prefix client",
     "start": "node server.js",
-    "server": "nodemon server.js"
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Arjay Isidro",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
+    "bootstrap": "^3.3.7",
+    "concurrently": "^4.1.0",
     "express": "^4.16.4",
+    "font-awesome": "^4.7.0",
     "gravatar": "^1.8.0",
     "jsonwebtoken": "^8.4.0",
     "mongoose": "^5.3.13",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
+    "react-bootstrap": "^0.32.4",
     "validator": "^10.9.0"
   },
   "devDependencies": {
