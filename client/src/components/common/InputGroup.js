@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
 
 const InputGroup = ({
   name,
@@ -27,7 +27,7 @@ const InputGroup = ({
         value={value}
         onChange={onChange}
       />
-      {error && <div className="invalid-feedback">{error} </div>}
+      {error && <div className="invalid-feedback">{error}</div>}
     </div>
   );
 };
@@ -36,8 +36,8 @@ InputGroup.propTypes = {
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
   value: PropTypes.string.isRequired,
-  error: PropTypes.string,
   icon: PropTypes.string,
+  error: PropTypes.string,
   type: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired
 };
