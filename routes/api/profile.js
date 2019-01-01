@@ -81,6 +81,7 @@ router.get('/user/:user_id', (req, res) => {
 // @desc    Get all propfiles
 // @access  Public
 router.get('/all', (req, res) => {
+  const errors = {};
   Profile.find()
     .populate('user', ['name', 'avatar'])
     .then(profiles => {
