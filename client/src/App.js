@@ -24,6 +24,13 @@ import AddExperience from './components/add-credentials/AddExperience';
 import AddEducation from './components/add-credentials/AddEducation';
 import Profiles from './components/profiles/Profiles';
 import Profile from './components/profile/Profile';
+import Posts from './components/posts/Posts';
+
+// Single Post component
+import Post from './components/post/Post';
+
+// Landing page for not exists page
+import NotFound from './components/not-found/NotFound';
 
 import './App.css';
 
@@ -83,6 +90,10 @@ class App extends Component {
                   path="/add-education"
                   component={AddEducation}
                 />
+                <PrivateRoute exact path="/feed" component={Posts} />
+                <PrivateRoute exact path="/post/:id" component={Post} />
+
+                <Route exact path="/not-found" component={NotFound} />
               </Switch>
             </div>
             <Footer />
