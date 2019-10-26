@@ -1,8 +1,11 @@
 {
-  "name": "react",
+  "name": "tmcc",
   "version": "1.0.0",
-  "description": "portfolio",
+  "description": "tmcc",
   "main": "server.js",
+  "engines": {
+    "node": "10.13.0"
+  },
   "scripts": {
     "client-install": "npm install --prefix client",
     "start": "node server.js",
