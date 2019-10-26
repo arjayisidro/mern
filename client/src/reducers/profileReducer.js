@@ -2,6 +2,7 @@ import {
   GET_PROFILE,
   GET_PROFILES,
   PROFILE_LOADING,
+  GET_STUDENT,
   CLEAR_CURRENT_PROFILE
 } from '../actions/types';
 

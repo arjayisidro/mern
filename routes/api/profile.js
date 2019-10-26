@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const passport = require('passport');
+const nodemailer = require('nodemailer');
 
 // Load Validation
 const validateProfileInput = require('../../validation/profile');
@@ -19,19 +20,11 @@ const User = require('../../models/User');
 // @access  Private
 router.get(
   '/',
-  passport.authenticate('jwt', { session: false }),
+  // passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    const errors = {};
-
-    Profile.findOne({ user: req.user.id })
-      .populate('user', ['name', 'avatar'])
-      .then(profile => {
-        if (!profile) {
-          errors.noprofile = 'There is no profile for this user.';
-          return res.status(400).json(errors);
-        }
-
-        res.json(profile);
+    Profile.find({})
+      .then(student => {
+        res.json(student);
       })
       .catch(err => res.status(404).json(err));
   }
@@ -115,51 +108,80 @@ router.post(
     // Get fields
     const profileFields = {};
     profileFields.user = req.user.id;
-    if (req.body.handle) profileFields.handle = req.body.handle;
-    if (req.body.company) profileFields.company = req.body.company;
-    if (req.body.website) profileFields.website = req.body.website;
-    if (req.body.location) profileFields.location = req.body.location;
-    if (req.body.bio) profileFields.bio = req.body.bio;
-    if (req.body.status) profileFields.status = req.body.status;
-    if (req.body.githubusername)
-      profileFields.githubusername = req.body.githubusername;
+    if (req.body.heiName) profileFields.heiName = req.body.heiName;
+    if (req.body.heiUUI) profileFields.heiUUI = req.body.heiUUI;
+    if (req.body.acadYear) profileFields.acadYear = req.body.acadYear;
 
-    // Skills Split into Array
-    if (typeof req.body.skills !== 'undefined') {
-      profileFields.skills = req.body.skills.split(',');
-    }
+    if (req.body.studentId) profileFields.studentId = req.body.studentId;
+    if (req.body.emailAdd) profileFields.emailAdd = req.body.emailAdd;
+    if (req.body.lastName) profileFields.lastName = req.body.lastName;
+    if (req.body.givenName) profileFields.givenName = req.body.givenName;
+    if (req.body.middleName) profileFields.middleName = req.body.middleName;
+    if (req.body.sex) profileFields.sex = req.body.sex;
+    if (req.body.birthDate) profileFields.birthDate = req.body.birthDate;
+    if (req.body.completeProgramName)
+      profileFields.completeProgramName = req.body.completeProgramName;
+    if (req.body.yearLevel) profileFields.yearLevel = req.body.yearLevel;
+    if (req.body.mothersLastName)
+      profileFields.mothersLastName = req.body.mothersLastName;
+    if (req.body.mothersGivenName)
+      profileFields.mothersGivenName = req.body.mothersGivenName;
+    if (req.body.mothersMiddleName)
+      profileFields.mothersMiddleName = req.body.mothersMiddleName;
+    if (req.body.fathersLastName)
+      profileFields.fathersLastName = req.body.fathersLastName;
+    if (req.body.fathersGivenName)
+      profileFields.fathersGivenName = req.body.fathersGivenName;
+    if (req.body.fathersMiddleName)
+      profileFields.fathersMiddleName = req.body.fathersMiddleName;
+    if (req.body.streetAndBarangay)
+      profileFields.streetAndBarangay = req.body.streetAndBarangay;
+    if (req.body.townAndMunicipality)
+      profileFields.townAndMunicipality = req.body.townAndMunicipality;
+    if (req.body.province) profileFields.province = req.body.province;
+    if (req.body.zipCode) profileFields.zipCode = req.body.zipCode;
+    if (req.body.totalAssesment)
+      profileFields.totalAssesment = req.body.totalAssesment;
+    if (req.body.disability) profileFields.disability = req.body.disability;
 
-    // Social
-    profileFields.social = {};
-    if (req.body.youtube) profileFields.social.youtube = req.body.youtube;
-    if (req.body.twitter) profileFields.social.twitter = req.body.twitter;
-    if (req.body.facebook) profileFields.social.facebook = req.body.facebook;
-    if (req.body.linkedin) profileFields.social.linkedin = req.body.linkedin;
-    if (req.body.instagram) profileFields.social.instagram = req.body.instagram;
-
-    Profile.findOne({ user: req.user.id })
+    Profile.findOne({ studentId: req.body.studentId })
       .then(profile => {
         if (profile) {
-          // Update
-          Profile.findOneAndUpdate(
-            { user: req.user.id },
-            { $set: profileFields },
-            { new: true }
-          ).then(profile => res.json(profile));
+          errors.studentId = 'The Student Id already registered';
+          res.status(400).json(errors);
         } else {
           // Create
 
-          // Check if handle is exist
-          Profile.findOne({ handle: profileFields.handle }).then(profile => {
-            if (profile) {
-              errors.handle = 'The handle alreadt exist';
-              res.status(400).json(errors);
-            }
+          // Save profile
+          new Profile(profileFields).save().then(profile => {
+            res.json(profile);
+            // Generate test SMTP service account from ethereal.email
+            // Only needed if you don't heeeave a real mail account for testing
 
-            // Save profile
-            new Profile(profileFields)
-              .save()
-              .then(profile => res.json(profile));
+            // create reusable transporter object using the default SMTP transport
+            let transporter = nodemailer.createTransport({
+              service: 'Gmail',
+              secure: false,
+              // port: 25,
+              auth: {
+                user: 'tmcca.noreply@gmail.com',
+                pass: 'tmcaP@ss123'
+              },
+              tls: {
+                rejectUnauthorized: false
+              }
+            });
+
+            // send mail with defined transport object
+            transporter.sendMail({
+              from:
+                '"Trece Martirez City College 👻" <tmcca.noreply@gmail.com>', // sender address
+              to: profileFields.emailAdd,
+              subject: 'Welcome to Trece Martirez City College!',
+              text: `Welcome, ${profileFields.givenName}!`,
+              html:
+                'This is your e-mail confirmation that you have been enrolled to Trece martirez city college!'
+            });
           });
         }
       })

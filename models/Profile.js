@@ -1,119 +1,126 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // Create Schema
 const ProfileSchema = new Schema({
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: "users"
-  },
-  handle: {
+  heiName: {
     type: String,
     required: true,
     max: 40
   },
-  company: {
-    type: String
-  },
-  website: {
-    type: String
-  },
-  location: {
-    type: String
-  },
-  status: {
+  heiUUI: {
     type: String,
-    required: true
+    required: true,
+    max: 40
   },
-  skills: {
-    type: [String],
-    required: true
+  acadYear: {
+    type: String,
+    required: true,
+    max: 40
   },
-  bio: {
-    type: String
+  studentId: {
+    type: String,
+    max: 40
   },
-  githubusername: {
-    type: String
+  emailAdd: {
+    type: String,
+    max: 40
   },
-  experience: [
-    {
-      title: {
-        type: String,
-        required: true
-      },
-      company: {
-        type: String,
-        required: true
-      },
-      location: {
-        type: String
-      },
-      from: {
-        type: Date,
-        required: true
-      },
-      to: {
-        type: Date
-      },
-      currrent: {
-        type: Boolean,
-        default: false
-      },
-      description: {
-        type: String
-      }
-    }
-  ],
-  education: [
-    {
-      school: {
-        type: String,
-        required: true
-      },
-      degree: {
-        type: String,
-        required: true
-      },
-      fieldofstudy: {
-        type: String
-      },
-      from: {
-        type: Date,
-        required: true
-      },
-      to: {
-        type: Date
-      },
-      currrent: {
-        type: Boolean,
-        default: false
-      },
-      description: {
-        type: String
-      }
-    }
-  ],
-  social: {
-    youtube: {
-      type: String
-    },
-    twitter: {
-      type: String
-    },
-    facebook: {
-      type: String
-    },
-    linkedin: {
-      type: String
-    },
-    instagram: {
-      type: String
-    }
+  lastName: {
+    type: String,
+    required: true,
+    max: 40
   },
-  date: {
-    type: Date,
-    default: Date.now
+  givenName: {
+    type: String,
+    required: true,
+    max: 40
+  },
+  middleName: {
+    type: String,
+    required: true,
+    max: 40
+  },
+  sex: {
+    type: String,
+    required: true,
+    max: 40
+  },
+  birthDate: {
+    type: String,
+    required: true,
+    max: 40
+  },
+  completeProgramName: {
+    type: String,
+    required: true,
+    max: 40
+  },
+  yearLevel: {
+    type: String,
+    required: true,
+    max: 40
+  },
+  mothersLastName: {
+    type: String,
+    required: true,
+    max: 40
+  },
+  mothersGivenName: {
+    type: String,
+    required: true,
+    max: 40
+  },
+  mothersMiddleName: {
+    type: String,
+    required: true,
+    max: 40
+  },
+  fathersLastName: {
+    type: String,
+    required: true,
+    max: 40
+  },
+  fathersGivenName: {
+    type: String,
+    required: true,
+    max: 40
+  },
+  fathersMiddleName: {
+    type: String,
+    required: true,
+    max: 40
+  },
+  streetAndBarangay: {
+    type: String,
+    required: true,
+    max: 40
+  },
+  townAndMunicipality: {
+    type: String,
+    required: true,
+    max: 40
+  },
+  province: {
+    type: String,
+    required: true,
+    max: 40
+  },
+  zipCode: {
+    type: String,
+    required: true,
+    max: 40
+  },
+  totalAssesment: {
+    type: String,
+    required: true,
+    max: 40
+  },
+  disability: {
+    type: String,
+    required: true,
+    max: 40
   }
 });
 
-module.exports = Profile = mongoose.model("profile", ProfileSchema);
+module.exports = Profile = mongoose.model('profile', ProfileSchema);

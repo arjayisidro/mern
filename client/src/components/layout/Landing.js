@@ -13,23 +13,54 @@ class Landing extends Component {
   render() {
     return (
       <div className="landing">
-        <div className="dark-overlay landing-inner text-light">
+        <div className="jumbotron bg-light">
           <div className="container">
-            <div className="row">
-              <div className="col-md-12 text-center">
-                <h1 className="display-3 mb-4">Welcome!</h1>
-                <p className="lead">
-                  {' '}
-                  Create a developer profile/portfolio, share posts and get help
-                  from other developers
-                </p>
-                <hr />
-                <Link to="/register" className="btn btn-lg btn-info mr-2">
-                  Sign Up
-                </Link>
-                <Link to="/login" className="btn btn-lg btn-light">
-                  Login
-                </Link>
+            <h1 className="display-4">Welcome!</h1>
+            <p className="lead">
+              To Trece Martires City College Automated Automated Students’
+              Admission and Registration System
+            </p>
+            <hr className="my-4" />
+            <p>If you are already registered please login.</p>
+            <Link
+              to="/login"
+              className="btn btn-outline-success btn-lg"
+              style={{ width: '20%' }}
+            >
+              Login here
+            </Link>
+          </div>
+        </div>
+        <div className="container">
+          <div className="row">
+            <div className="col-md-12">
+              <div class="row">
+                <div className="col-sm-6">
+                  <div className="card">
+                    <div className="card-body">
+                      <h5 className="card-title">Some content goes here</h5>
+                      <p className="card-text">
+                        Please add more content here so the site will look good.
+                      </p>
+                      <a href="#" className="btn btn-outline-secondary">
+                        Go somewhere
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-sm-6">
+                  <div className="card">
+                    <div className="card-body">
+                      <h5 className="card-title">Some content goes here</h5>
+                      <p className="card-text">
+                        Please add more content here so the site will look good.
+                      </p>
+                      <a href="#" className="btn btn-outline-secondary">
+                        Go somewhere
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
