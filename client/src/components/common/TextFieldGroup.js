@@ -15,9 +15,10 @@ const TextFieldGroup = ({
 }) => {
   return (
     <div className="form-group">
+      <small>{label}</small>
       <input
         type={type}
-        className={classnames('form-control form-control-lg', {
+        className={classnames('form-control form-control-md', {
           'is-invalid': error
         })}
         placeholder={placeholder}

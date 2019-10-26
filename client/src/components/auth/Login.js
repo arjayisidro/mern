@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions/authActions';
 import TextFieldGroup from '../common/TextFieldGroup';
+import logo from '../../img/logo.png';
+import Spinner from '../common/Spinner';
+import { Link } from 'react-router-dom';
 
 class Login extends Component {
   constructor() {
@@ -10,11 +13,16 @@ class Login extends Component {
     this.state = {
       email: '',
       password: '',
-      errors: {}
+      errors: {},
+      is_loading: false,
+      loading: true
     };
   }
 
   componentDidMount() {
+    setTimeout(() => {
+      this.setState({ loading: false });
+    }, 1000);
     if (this.props.auth.isAuthenticated) {
       this.props.history.push('/dashboard');
     }
@@ -27,6 +35,7 @@ class Login extends Component {
 
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
+      this.setState({ is_loading: false });
     }
   }
 
@@ -36,6 +45,7 @@ class Login extends Component {
 
   onSubmit = e => {
     e.preventDefault();
+    this.setState({ is_loading: true });
 
     const userData = {
       email: this.state.email,
@@ -46,42 +56,68 @@ class Login extends Component {
   };
 
   render() {
-    const { errors } = this.state;
+    const { errors, is_loading } = this.state;
+    let LoginContent;
 
-    return (
-      <div className="login">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Log In</h1>
-              <p className="lead text-center">
-                Sign in to your DevConnector account
-              </p>
-              <form onSubmit={this.onSubmit}>
-                <TextFieldGroup
-                  placeholder="Email Address"
-                  name="email"
-                  type="email"
-                  value={this.state.email}
-                  onChange={this.onChange}
-                  error={errors.email}
-                />
+    if (this.state.loading) {
+      LoginContent = <Spinner />;
+    } else {
+      LoginContent = (
+        <div className="login">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-5 m-auto">
+                <p className="text-center">
+                  <img style={{ width: '30%' }} src={logo} alt="logo" />
+                </p>
+                <p className="lead text-center">Sign in your admin account</p>
+                <form onSubmit={this.onSubmit}>
+                  <TextFieldGroup
+                    placeholder="Email Address"
+                    name="email"
+                    type="email"
+                    value={this.state.email}
+                    onChange={this.onChange}
+                    error={errors.email}
+                  />
 
-                <TextFieldGroup
-                  placeholder="Password"
-                  name="password"
-                  type="password"
-                  value={this.state.password}
-                  onChange={this.onChange}
-                  error={errors.password}
-                />
-                <input type="submit" className="btn btn-info btn-block mt-4" />
-              </form>
+                  <TextFieldGroup
+                    placeholder="Password"
+                    name="password"
+                    type="password"
+                    value={this.state.password}
+                    onChange={this.onChange}
+                    error={errors.password}
+                  />
+                  {/*
+                  <small className="form-text text-muted">
+                    Doesn't have an account yet? Click
+                    <Link to="/register"> here</Link> to register
+                  </small> */}
+
+                  <button
+                    type="submit"
+                    className="btn btn-md btn-outline-success btn-block mt-4"
+                  >
+                    {is_loading ? (
+                      <span
+                        className="spinner-border spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"
+                      />
+                    ) : (
+                      'Submit'
+                    )}
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    }
+
+    return <div>{LoginContent}</div>;
   }
 }
 

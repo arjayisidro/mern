@@ -26,52 +26,23 @@ class Dashboard extends Component {
     if (profile === null || loading) {
       dashboardContent = <Spinner />;
     } else {
-      // Check if logged in user has profile data
-      if (Object.keys(profile).length > 0) {
-        dashboardContent = (
-          <div>
-            <p className="lead text-muted">
-              Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link>{' '}
-            </p>
-            <ProfileActions />
-
-            {/* Dashboard tables */}
-            <Experience experience={profile.experience} />
-            <Education education={profile.education} />
-
-            <div style={{ marginBotton: '60px' }}>
-              <button
-                onClick={this.onDeleteCick.bind(this)}
-                className="btn btn-danger"
-              >
-                Delete my Account
-              </button>
-            </div>
-          </div>
-        );
-      } else {
-        // User has logged in but no profile
-        dashboardContent = (
-          <div>
-            <p className="lead text-muted">Welcome {user.name} </p>
-            <p>You have not yet created your profile.</p>
-            <Link to="/create-profile" className="btn btn-lg btn-info">
-              Create Profile
-            </Link>
-          </div>
-        );
-      }
+      dashboardContent = (
+        <div>
+          <p
+            className="lead text-muted"
+            style={{ textTransform: 'capitalize' }}
+          >
+            Welcome, {user.name} !
+          </p>
+          <p>Enjoy using this Online system of Trece Martirez City College.</p>
+        </div>
+      );
     }
 
     return (
       <div className="dashboard">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <h1 className="display-4">Dashboard</h1>
-              {dashboardContent}
-            </div>
-          </div>
+        <div className="row">
+          <div className="col-md-12">{dashboardContent}</div>
         </div>
       </div>
     );

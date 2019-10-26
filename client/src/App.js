@@ -16,6 +16,7 @@ import Footer from './components/layout/Footer';
 
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
+import LoginSuccess from './components/auth/LoginSuccess';
 
 import Dashboard from './components/dashboard/Dashboard';
 import CreateProfile from './components/create-profile/CreateProfile';
@@ -33,6 +34,8 @@ import Post from './components/post/Post';
 import NotFound from './components/not-found/NotFound';
 
 import './App.css';
+import RegistrationForm from './components/StudentRegistration/RegistrationForm';
+import StudentSchedule from './components/StudentActions/StudentSchedule';
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -66,10 +69,21 @@ class App extends Component {
             <div className="container">
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
+              <Route exact path="/registerSuccess" component={LoginSuccess} />
               <Route exact path="/profiles" component={Profiles} />
               <Route exact path="/profile/:handle" component={Profile} />
               <Switch>
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                <PrivateRoute
+                  exact
+                  path="/registration-form"
+                  component={RegistrationForm}
+                />
+                <PrivateRoute
+                  exact
+                  path="/schedule-exam"
+                  component={StudentSchedule}
+                />
                 <PrivateRoute
                   exact
                   path="/create-profile"

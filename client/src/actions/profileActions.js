@@ -3,6 +3,8 @@ import axios from 'axios';
 import {
   GET_PROFILE,
   GET_PROFILES,
+  GET_STUDENTS,
+  STUDENT_LOADING,
   PROFILE_LOADING,
   CLEAR_CURRENT_PROFILE,
   GET_ERRORS,
@@ -24,6 +26,24 @@ export const getCurrentProfile = () => dispatch => {
       dispatch({
         type: GET_PROFILE,
         payload: {}
+      });
+    });
+};
+
+export const getAllStudents = () => dispatch => {
+  dispatch(setStudentLoading());
+  axios
+    .get(`/api/profile`)
+    .then(response => {
+      dispatch({
+        type: GET_STUDENTS,
+        payload: response.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_STUDENTS,
+        payload: null
       });
     });
 };
@@ -167,6 +187,12 @@ export const deleteAccount = () => dispatch => {
 export const setProfileLoading = () => {
   return {
     type: PROFILE_LOADING
+  };
+};
+
+export const setStudentLoading = () => {
+  return {
+    type: STUDENT_LOADING
   };
 };
 
