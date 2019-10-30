@@ -81,7 +81,7 @@ class App extends Component {
                 />
                 <PrivateRoute
                   exact
-                  path="/schedule-exam"
+                  path="/student-list"
                   component={StudentSchedule}
                 />
                 <PrivateRoute

@@ -101,7 +101,7 @@ class Register extends Component {
                   />
                   <button
                     type="submit"
-                    className="btn btn-lg btn-primary btn-block mt-4"
+                    className="btn btn-md btn-outline-success btn-block mt-4"
                   >
                     {is_loading ? (
                       <span

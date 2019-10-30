@@ -28,23 +28,15 @@ class Navbar extends Component {
               aria-haspopup="true"
               aria-expanded="false"
             >
-              Administration
+              Admission
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
               <Link className="dropdown-item" to="/registration-form">
                 Register a Student
               </Link>
-              <Link className="dropdown-item" to="/schedule-exam">
-                Schedule for Exam
+              <Link className="dropdown-item" to="/student-list">
+                Student Master List
               </Link>
-
-              <a className="dropdown-item" href="#">
-                Schedule for Requirements
-              </a>
-              <div className="dropdown-divider"></div>
-              <a className="dropdown-item" href="#">
-                Search for Student
-              </a>
             </div>
           </li>
           <li className="nav-item dropdown">
@@ -75,11 +67,16 @@ class Navbar extends Component {
             Login
           </Link>
         </li>
+        <li className="nav-item">
+          <Link className="nav-link font-weight-bold text-white" to="/login">
+            Register
+          </Link>
+        </li>
       </ul>
     );
 
     return (
-      <nav className="navbar navbar-expand-sm navbar-success bg-success mb-4">
+      <nav className="navbar navbar-expand-sm bg-success mb-4">
         <div className="container">
           <div className="collapse navbar-collapse">
             <Link

@@ -21,13 +21,9 @@ class Landing extends Component {
               Admission and Registration System
             </p>
             <hr className="my-4" />
-            <p>If you are already registered please login.</p>
-            <Link
-              to="/login"
-              className="btn btn-outline-success btn-lg"
-              style={{ width: '20%' }}
-            >
-              Login here
+            <p>If you haven't register please click the button below.</p>
+            <Link to="/register" className="btn btn-outline-success btn-lg">
+              Register here
             </Link>
           </div>
         </div>

@@ -89,11 +89,11 @@ class Login extends Component {
                     onChange={this.onChange}
                     error={errors.password}
                   />
-                  {/*
+
                   <small className="form-text text-muted">
                     Doesn't have an account yet? Click
                     <Link to="/register"> here</Link> to register
-                  </small> */}
+                  </small>
 
                   <button
                     type="submit"
