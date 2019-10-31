@@ -15,6 +15,27 @@ const Profile = require('../../models/Profile');
 // Load user model
 const User = require('../../models/User');
 
+// @route GET api/profile/search
+// @desc Login User / Returning JWT Token
+// @access Private
+router.get(
+  '/student/:studentId',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    const errors = {};
+    Profile.findOne({ studentId: req.params.studentId })
+      .then(profile => {
+        if (!profile) {
+          errors.noStudent = 'There is no student for this Student ID.';
+          res.status(404).json(errors);
+        }
+
+        res.json(profile);
+      })
+      .catch(err => res.status(404).json(err));
+  }
+);
+
 // @route   GET api/profile
 // @desc    Get current users profile
 // @access  Private

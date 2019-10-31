@@ -14,3 +14,4 @@ export const ADD_POST = 'ADD_POST';
 export const DELETE_POST = 'DELETE_POST';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 export const GET_STUDENTS = 'GET_STUDENTS';
+export const GET_STUDENT = 'GET_STUDENT';

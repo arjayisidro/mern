@@ -144,7 +144,7 @@ class RegistrationForm extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              <h2 className="display-5 text-left">Student Registration</h2>
+              <h2 className="display-5 text-left">Registration</h2>
               <small className="form-text text-italic text-left text-muted">
                 Please read the instructions in the General Instructions tab of
                 this template

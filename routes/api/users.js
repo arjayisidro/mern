@@ -13,6 +13,7 @@ const validateLoginInput = require('../../validation/login');
 
 // Load User Model
 const User = require('../../models/User');
+const Profile = require('../../models/Profile');
 
 // @route GET api/users/test
 // @desc Tests users route
@@ -45,7 +46,8 @@ router.post('/register', (req, res) => {
         name: req.body.name,
         email: req.body.email,
         avatar,
-        password: req.body.password
+        password: req.body.password,
+        role: 1
       });
 
       bcrypt.genSalt(10, (err, salt) => {
@@ -113,7 +115,12 @@ router.post('/login', (req, res) => {
       if (isMatch) {
         // User match
 
-        const payload = { id: user.id, name: user.name, avatar: user.avatar }; // Create JWT payload
+        const payload = {
+          id: user.id,
+          name: user.name,
+          avatar: user.avatar,
+          role: user.role
+        }; // Create JWT payload
 
         // Sign the token
         jwt.sign(

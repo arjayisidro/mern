@@ -9,7 +9,8 @@ import {
 const initialState = {
   profile: null,
   profiles: null,
-  loading: false
+  loading: false,
+  student: null
 };
 
 export default function(state = initialState, action) {
@@ -23,6 +24,12 @@ export default function(state = initialState, action) {
       return {
         ...state,
         profile: action.payload,
+        loading: false
+      };
+    case GET_STUDENT:
+      return {
+        ...state,
+        student: action.payload,
         loading: false
       };
     case GET_PROFILES:

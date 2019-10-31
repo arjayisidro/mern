@@ -4,6 +4,7 @@ import {
   GET_PROFILE,
   GET_PROFILES,
   GET_STUDENTS,
+  GET_STUDENT,
   STUDENT_LOADING,
   PROFILE_LOADING,
   CLEAR_CURRENT_PROFILE,
@@ -37,6 +38,23 @@ export const getAllStudents = () => dispatch => {
     .then(response => {
       dispatch({
         type: GET_STUDENTS,
+        payload: response.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_STUDENTS,
+        payload: null
+      });
+    });
+};
+
+export const searchByStudentId = studentId => dispatch => {
+  axios
+    .get(`/api/profile/student/${studentId}`)
+    .then(response => {
+      dispatch({
+        type: GET_STUDENT,
         payload: response.data
       });
     })
