@@ -23,7 +23,7 @@ class Dashboard extends Component {
     if (profile === null || loading) {
       dashboardContent = <Spinner />;
     } else {
-      dashboardContent = (
+      dashboardContent = !student && (
         <div>
           <p
             className="lead text-muted"

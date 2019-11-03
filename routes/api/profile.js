@@ -136,7 +136,7 @@ router.post(
     if (req.body.studentId) profileFields.studentId = req.body.studentId;
     if (req.body.emailAdd) profileFields.emailAdd = req.body.emailAdd;
     if (req.body.lastName) profileFields.lastName = req.body.lastName;
-    if (req.body.givenName) profileFields.givenName = req.body.givenName;
+    if (req.body.firstName) profileFields.firstName = req.body.firstName;
     if (req.body.middleName) profileFields.middleName = req.body.middleName;
     if (req.body.sex) profileFields.sex = req.body.sex;
     if (req.body.birthDate) profileFields.birthDate = req.body.birthDate;
@@ -199,7 +199,7 @@ router.post(
                 '"Trece Martirez City College 👻" <tmcca.noreply@gmail.com>', // sender address
               to: profileFields.emailAdd,
               subject: 'Welcome to Trece Martirez City College!',
-              text: `Welcome, ${profileFields.givenName}!`,
+              text: `Welcome, ${profileFields.firstName}!`,
               html:
                 'This is your e-mail confirmation that you have been enrolled to Trece martirez city college!'
             });

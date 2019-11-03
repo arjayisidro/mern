@@ -8,9 +8,47 @@ import {
   STUDENT_LOADING,
   PROFILE_LOADING,
   CLEAR_CURRENT_PROFILE,
+  GET_ADMISSION_STUDENTS,
   GET_ERRORS,
-  SET_CURRENT_USER
+  SET_CURRENT_USER,
+  SET_ADMISSION_STATE
 } from './types';
+
+export const getAllRegisteredAdmission = () => dispatch => {
+  dispatch(setStudentLoading());
+  axios
+    .get(`/api/admission/registered`)
+    .then(response => {
+      dispatch({
+        type: GET_ADMISSION_STUDENTS,
+        payload: response.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_ADMISSION_STUDENTS,
+        payload: null
+      });
+    });
+};
+
+export const createAdmission = (admissionData, history) => dispatch => {
+  axios
+    .post('api/admission', admissionData)
+    .then(res => {
+      dispatch({
+        type: SET_ADMISSION_STATE,
+        payload: true
+      });
+      history.push('/dashboard');
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      });
+    });
+};
 
 // Get current profile
 export const getCurrentProfile = () => dispatch => {

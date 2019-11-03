@@ -56,34 +56,18 @@ class Navbar extends Component {
             >
               {isStudent ? 'Student Admission' : 'Admission'}
             </a>
-            <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-              {!isStudent && (
+            {!isStudent && (
+              <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                <Link className="dropdown-item" to="/registration-form">
+                  Register a Student
+                </Link>
+                <Link className="dropdown-item" to="/admission-registered">
+                  Registered Admission Students
+                </Link>
                 <Link className="dropdown-item" to="/student-list">
                   Student Master List
                 </Link>
-              )}
-            </div>
-            {isAuthenticated && !isStudent && (
-              <form
-                className="form-inline my-2 my-lg-12"
-                onSubmit={this.onSubmit}
-              >
-                <TextFieldGroup
-                  className="form-control mr-sm-2"
-                  type="search"
-                  placeholder="Enter Student ID..."
-                  aria-label="Search"
-                  onChange={this.onChange}
-                  value={this.state.searchField}
-                  name="searchField"
-                />
-                <button
-                  className="btn btn-outline-light ml-2 my-2 my-sm-0"
-                  type="submit"
-                >
-                  Search
-                </button>
-              </form>
+              </div>
             )}
           </li>
         )}
@@ -141,9 +125,9 @@ class Navbar extends Component {
               <Link
                 className="navbar-brand font-weight-bold mr-4 text-white"
                 style={{ paddingBottom: '10px' }}
-                to="/registration-form"
+                to="/admission-form"
               >
-                Register
+                Admission
               </Link>
             )}
 

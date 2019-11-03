@@ -18,7 +18,7 @@ class RegistrationForm extends Component {
       studentId: '',
       emailAdd: '',
       lastName: '',
-      givenName: '',
+      firstName: '',
       middleName: '',
       sex: '',
       birthDate: '',
@@ -61,7 +61,7 @@ class RegistrationForm extends Component {
       studentId: this.state.studentId,
       emailAdd: this.state.emailAdd,
       lastName: this.state.lastName,
-      givenName: this.state.givenName,
+      firstName: this.state.firstName,
       middleName: this.state.middleName,
       sex: this.state.sex,
       birthDate: this.state.birthDate,
@@ -93,7 +93,7 @@ class RegistrationForm extends Component {
       studentId: '',
       emailAdd: '',
       lastName: '',
-      givenName: '',
+      firstName: '',
       middleName: '',
       sex: '',
       birthDate: '',
@@ -228,10 +228,10 @@ class RegistrationForm extends Component {
                     <TextFieldGroup
                       placeholder="Given name"
                       label="Given name:"
-                      name="givenName"
-                      value={this.state.givenName}
+                      name="firstName"
+                      value={this.state.firstName}
                       onChange={this.onChange}
-                      error={errors.givenName}
+                      error={errors.firstName}
                     />
                   </div>
                   <div className="col-md-4">
@@ -262,6 +262,7 @@ class RegistrationForm extends Component {
                   <div className="col-md-3">
                     <TextFieldGroup
                       placeholder="Birthdate"
+                      type="date"
                       label="Birthdate:"
                       name="birthDate"
                       value={this.state.birthDate}
@@ -295,8 +296,8 @@ class RegistrationForm extends Component {
                 <div className="row mb-4">
                   <div className="col-md-4">
                     <TextFieldGroup
-                      placeholder="Lastname"
-                      label="Lastname:"
+                      placeholder="Father's Lastname"
+                      label="Father's Lastname:"
                       name="fathersLastName"
                       value={this.state.fathersLastName}
                       onChange={this.onChange}
@@ -305,8 +306,8 @@ class RegistrationForm extends Component {
                   </div>
                   <div className="col-md-4">
                     <TextFieldGroup
-                      placeholder="Given name"
-                      label="Given name:"
+                      placeholder="Father's Given name"
+                      label="Father's Given name:"
                       name="fathersGivenName"
                       value={this.state.fathersGivenName}
                       onChange={this.onChange}
@@ -315,8 +316,8 @@ class RegistrationForm extends Component {
                   </div>
                   <div className="col-md-4">
                     <TextFieldGroup
-                      placeholder="Middle name"
-                      label="Middle name:"
+                      placeholder="Father's Middle name"
+                      label="Father's Middle name:"
                       name="fathersMiddleName"
                       value={this.state.fathersMiddleName}
                       onChange={this.onChange}
@@ -329,8 +330,8 @@ class RegistrationForm extends Component {
                 <div className="row mb-4">
                   <div className="col-md-4">
                     <TextFieldGroup
-                      placeholder="Lastname"
-                      label="Lastname:"
+                      placeholder="Mother's Lastname"
+                      label="Mother's Lastname:"
                       name="mothersLastName"
                       value={this.state.mothersLastName}
                       onChange={this.onChange}
@@ -339,8 +340,8 @@ class RegistrationForm extends Component {
                   </div>
                   <div className="col-md-4">
                     <TextFieldGroup
-                      placeholder="Given name"
-                      label="Given name:"
+                      placeholder="Mother's Given name"
+                      label="Mother's Given name:"
                       name="mothersGivenName"
                       value={this.state.mothersGivenName}
                       onChange={this.onChange}
@@ -349,8 +350,8 @@ class RegistrationForm extends Component {
                   </div>
                   <div className="col-md-4">
                     <TextFieldGroup
-                      placeholder="Middle name"
-                      label="Middle name:"
+                      placeholder="Mother's Middle name"
+                      label="Mother's Middle name:"
                       name="mothersMiddleName"
                       value={this.state.mothersMiddleName}
                       onChange={this.onChange}

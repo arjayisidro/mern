@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import { getAllStudents } from '../../actions/profileActions';
+import { getAllRegisteredAdmission } from '../../actions/profileActions';
 import TextFieldGroup from '../common/TextFieldGroup';
 
 class StudentSchedule extends Component {
@@ -20,18 +21,18 @@ class StudentSchedule extends Component {
   }
 
   componentDidMount() {
-    this.props.getAllStudents();
+    this.props.getAllRegisteredAdmission();
   }
 
   componentWillReceiveProps(nextProps) {
-    const { students } = nextProps.students;
-    this.setState({ studentList: students });
+    const { admissionStudents } = nextProps.students;
+    this.setState({ studentList: admissionStudents });
   }
 
   onSubmit(e) {
     e.preventDefault();
     const { studentList, searchField } = this.state;
-    const { students } = this.props.students;
+    const { admissionStudents } = this.props.students;
     this.setState({
       studentList: studentList.filter(
         data =>
@@ -42,7 +43,7 @@ class StudentSchedule extends Component {
     });
 
     if (searchField === '') {
-      this.setState({ studentList: students });
+      this.setState({ studentList: admissionStudents });
     }
   }
 
@@ -92,12 +93,10 @@ class StudentSchedule extends Component {
             <table className="table text-left">
               <thead className="thead-light">
                 <tr>
-                  <th>Student ID</th>
+                  <th>Admission ID</th>
                   <th>Last name</th>
-                  <th>First name</th>
+                  <th>Given name</th>
                   <th>Middle name</th>
-                  <th>Year Level</th>
-                  <th>Program Name</th>
                   <th />
                 </tr>
               </thead>
@@ -121,18 +120,17 @@ class StudentSchedule extends Component {
                     studentList.map(student => {
                       return (
                         <tr>
-                          <td style={{ width: '10%' }}>{student.studentId}</td>
+                          <td>{student.admissionId}</td>
                           <td>{student.lastName}</td>
                           <td>{student.firstName}</td>
-                          <td style={{ width: '15%' }}>{student.middleName}</td>
-                          <td>{student.yearLevel}</td>
-                          <td style={{ width: '15%' }}>
-                            {student.completeProgramName}
-                          </td>
+                          <td>{student.middleName}</td>
                           <td>
-                            <button className="btn btn-outline-success btn-sm">
+                            <Link
+                              className="btn btn-outline-success btn-sm"
+                              to="/registration-form"
+                            >
                               Register
-                            </button>
+                            </Link>
                           </td>
                         </tr>
                       );
@@ -150,7 +148,7 @@ class StudentSchedule extends Component {
 StudentSchedule.propTypes = {
   students: PropTypes.array.isRequired,
   errors: PropTypes.object.isRequired,
-  getAllStudents: PropTypes.func.isRequired
+  getAllRegisteredAdmission: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -160,5 +158,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getAllStudents }
+  { getAllRegisteredAdmission }
 )(withRouter(StudentSchedule));

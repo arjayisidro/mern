@@ -3,14 +3,16 @@ import {
   GET_PROFILES,
   PROFILE_LOADING,
   GET_STUDENT,
-  CLEAR_CURRENT_PROFILE
+  CLEAR_CURRENT_PROFILE,
+  SET_ADMISSION_STATE
 } from '../actions/types';
 
 const initialState = {
   profile: null,
   profiles: null,
   loading: false,
-  student: null
+  student: null,
+  isSuccess: false
 };
 
 export default function(state = initialState, action) {
@@ -19,6 +21,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         loading: true
+      };
+    case SET_ADMISSION_STATE:
+      return {
+        ...state,
+        isSuccess: action.payload
       };
     case GET_PROFILE:
       return {

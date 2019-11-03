@@ -8,7 +8,7 @@ module.exports = function validateProfileInput(data) {
   data.studentId = !isEmpty(data.studentId) ? data.studentId : '';
   data.emailAdd = !isEmpty(data.emailAdd) ? data.emailAdd : '';
   data.lastName = !isEmpty(data.lastName) ? data.lastName : '';
-  data.givenName = !isEmpty(data.givenName) ? data.givenName : '';
+  data.firstName = !isEmpty(data.firstName) ? data.firstName : '';
   data.middleName = !isEmpty(data.middleName) ? data.middleName : '';
   data.sex = !isEmpty(data.sex) ? data.sex : '';
 

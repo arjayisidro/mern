@@ -35,6 +35,8 @@ import NotFound from './components/not-found/NotFound';
 
 import './App.css';
 import RegistrationForm from './components/StudentRegistration/RegistrationForm';
+import AdmissionForm from './components/StudentRegistration/AdmissionForm';
+import StudentAdmission from './components/StudentActions/StudentAdmission';
 import StudentSchedule from './components/StudentActions/StudentSchedule';
 
 // Check for token
@@ -79,6 +81,17 @@ class App extends Component {
                   path="/registration-form"
                   component={RegistrationForm}
                 />
+                <PrivateRoute
+                  exact
+                  path="/admission-form"
+                  component={AdmissionForm}
+                />
+                <PrivateRoute
+                  exact
+                  path="/admission-registered"
+                  component={StudentAdmission}
+                />
+
                 <PrivateRoute
                   exact
                   path="/student-list"

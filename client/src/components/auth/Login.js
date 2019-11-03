@@ -70,7 +70,7 @@ class Login extends Component {
                 <p className="text-center">
                   <img style={{ width: '30%' }} src={logo} alt="logo" />
                 </p>
-                <p className="lead text-center">Sign in your admin account</p>
+                <p className="lead text-center">Sign in your account</p>
                 <form onSubmit={this.onSubmit}>
                   <TextFieldGroup
                     placeholder="Email Address"

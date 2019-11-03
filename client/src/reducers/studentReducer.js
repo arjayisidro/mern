@@ -1,8 +1,13 @@
-import { STUDENT_LOADING, GET_STUDENTS } from '../actions/types';
+import {
+  STUDENT_LOADING,
+  GET_STUDENTS,
+  GET_ADMISSION_STUDENTS
+} from '../actions/types';
 
 const initialState = {
   loading: false,
-  students: null
+  students: null,
+  admissionStudents: null
 };
 
 export default function(state = initialState, action) {
@@ -16,6 +21,12 @@ export default function(state = initialState, action) {
       return {
         ...state,
         students: action.payload,
+        loading: false
+      };
+    case GET_ADMISSION_STUDENTS:
+      return {
+        ...state,
+        admissionStudents: action.payload,
         loading: false
       };
     default:

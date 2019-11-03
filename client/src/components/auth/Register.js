@@ -113,6 +113,10 @@ class Register extends Component {
                       'Submit'
                     )}
                   </button>
+                  <small className="form-text text-muted mt-2">
+                    Already have an account? click{' '}
+                    <Link to="/login"> here</Link> to Sign-in
+                  </small>
                 </form>
               </div>
             </div>
