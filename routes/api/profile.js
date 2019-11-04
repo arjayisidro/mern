@@ -129,41 +129,17 @@ router.post(
     // Get fields
     const profileFields = {};
     profileFields.user = req.user.id;
-    if (req.body.heiName) profileFields.heiName = req.body.heiName;
-    if (req.body.heiUUI) profileFields.heiUUI = req.body.heiUUI;
+    if (req.body.studentName) profileFields.studentName = req.body.studentName;
+    if (req.body.accountNo) profileFields.accountNo = req.body.accountNo;
     if (req.body.acadYear) profileFields.acadYear = req.body.acadYear;
 
     if (req.body.studentId) profileFields.studentId = req.body.studentId;
-    if (req.body.emailAdd) profileFields.emailAdd = req.body.emailAdd;
-    if (req.body.lastName) profileFields.lastName = req.body.lastName;
-    if (req.body.firstName) profileFields.firstName = req.body.firstName;
-    if (req.body.middleName) profileFields.middleName = req.body.middleName;
+    if (req.body.studentType) profileFields.studentType = req.body.studentType;
+    if (req.body.semester) profileFields.semester = req.body.semester;
     if (req.body.sex) profileFields.sex = req.body.sex;
-    if (req.body.birthDate) profileFields.birthDate = req.body.birthDate;
-    if (req.body.completeProgramName)
-      profileFields.completeProgramName = req.body.completeProgramName;
+    if (req.body.course) profileFields.course = req.body.course;
+    if (req.body.major) profileFields.major = req.body.major;
     if (req.body.yearLevel) profileFields.yearLevel = req.body.yearLevel;
-    if (req.body.mothersLastName)
-      profileFields.mothersLastName = req.body.mothersLastName;
-    if (req.body.mothersGivenName)
-      profileFields.mothersGivenName = req.body.mothersGivenName;
-    if (req.body.mothersMiddleName)
-      profileFields.mothersMiddleName = req.body.mothersMiddleName;
-    if (req.body.fathersLastName)
-      profileFields.fathersLastName = req.body.fathersLastName;
-    if (req.body.fathersGivenName)
-      profileFields.fathersGivenName = req.body.fathersGivenName;
-    if (req.body.fathersMiddleName)
-      profileFields.fathersMiddleName = req.body.fathersMiddleName;
-    if (req.body.streetAndBarangay)
-      profileFields.streetAndBarangay = req.body.streetAndBarangay;
-    if (req.body.townAndMunicipality)
-      profileFields.townAndMunicipality = req.body.townAndMunicipality;
-    if (req.body.province) profileFields.province = req.body.province;
-    if (req.body.zipCode) profileFields.zipCode = req.body.zipCode;
-    if (req.body.totalAssesment)
-      profileFields.totalAssesment = req.body.totalAssesment;
-    if (req.body.disability) profileFields.disability = req.body.disability;
 
     Profile.findOne({ studentId: req.body.studentId })
       .then(profile => {

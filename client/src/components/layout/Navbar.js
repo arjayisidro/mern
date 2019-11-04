@@ -58,11 +58,14 @@ class Navbar extends Component {
             </a>
             {!isStudent && (
               <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                <Link className="dropdown-item" to="/admission-form">
+                  Admission Form
+                </Link>
                 <Link className="dropdown-item" to="/registration-form">
-                  Register a Student
+                  Register Form
                 </Link>
                 <Link className="dropdown-item" to="/admission-registered">
-                  Registered Admission Students
+                  Admission List
                 </Link>
                 <Link className="dropdown-item" to="/student-list">
                   Student Master List
@@ -111,38 +114,35 @@ class Navbar extends Component {
     );
 
     return (
-      <nav className="navbar navbar-expand-lg bg-success mb-4">
+      <nav className="navbar navbar-expand-sm navbar-dark bg-success mb-4">
         <div className="container">
-          <div className="collapse navbar-collapse">
+          <Link
+            className="navbar-brand font-weight-bold text-white"
+            style={{ paddingBottom: '10px', marginRight: '5%' }}
+            to="/"
+          >
+            Home
+          </Link>
+          {isStudent && (
             <Link
-              className="navbar-brand font-weight-bold text-white"
-              style={{ paddingBottom: '10px', marginRight: '5%' }}
-              to="/"
+              className="navbar-brand font-weight-bold mr-4 text-white"
+              style={{ paddingBottom: '10px' }}
+              to="/admission-form"
             >
-              Home
+              Admission
             </Link>
-            {isStudent && (
-              <Link
-                className="navbar-brand font-weight-bold mr-4 text-white"
-                style={{ paddingBottom: '10px' }}
-                to="/admission-form"
-              >
-                Admission
-              </Link>
-            )}
+          )}
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#mobile-nav"
+          >
+            <span className="navbar-toggler-icon" />
+          </button>
 
-            <button
-              className="navbar-toggler"
-              type="button"
-              data-toggle="collapse"
-              data-target="#mobile-nav"
-            >
-              <span className="navbar-toggler-icon" />
-            </button>
-
-            <div className="collapse navbar-collapse" id="mobile-nav">
-              {isAuthenticated ? authLinks : guestLinks}
-            </div>
+          <div className="collapse navbar-collapse" id="mobile-nav">
+            {isAuthenticated ? authLinks : guestLinks}
           </div>
         </div>
       </nav>

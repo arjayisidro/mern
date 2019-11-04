@@ -3,12 +3,12 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const ProfileSchema = new Schema({
-  heiName: {
+  studentName: {
     type: String,
     required: true,
     max: 40
   },
-  heiUUI: {
+  accountNo: {
     type: String,
     required: true,
     max: 40
@@ -20,23 +20,14 @@ const ProfileSchema = new Schema({
   },
   studentId: {
     type: String,
-    max: 40
-  },
-  emailAdd: {
-    type: String,
-    max: 40
-  },
-  lastName: {
-    type: String,
     required: true,
     max: 40
   },
-  givenName: {
+  studentType: {
     type: String,
-    required: true,
     max: 40
   },
-  middleName: {
+  semester: {
     type: String,
     required: true,
     max: 40
@@ -46,77 +37,17 @@ const ProfileSchema = new Schema({
     required: true,
     max: 40
   },
-  birthDate: {
+  course: {
     type: String,
     required: true,
     max: 40
   },
-  completeProgramName: {
+  major: {
     type: String,
     required: true,
     max: 40
   },
   yearLevel: {
-    type: String,
-    required: true,
-    max: 40
-  },
-  mothersLastName: {
-    type: String,
-    required: true,
-    max: 40
-  },
-  mothersGivenName: {
-    type: String,
-    required: true,
-    max: 40
-  },
-  mothersMiddleName: {
-    type: String,
-    required: true,
-    max: 40
-  },
-  fathersLastName: {
-    type: String,
-    required: true,
-    max: 40
-  },
-  fathersGivenName: {
-    type: String,
-    required: true,
-    max: 40
-  },
-  fathersMiddleName: {
-    type: String,
-    required: true,
-    max: 40
-  },
-  streetAndBarangay: {
-    type: String,
-    required: true,
-    max: 40
-  },
-  townAndMunicipality: {
-    type: String,
-    required: true,
-    max: 40
-  },
-  province: {
-    type: String,
-    required: true,
-    max: 40
-  },
-  zipCode: {
-    type: String,
-    required: true,
-    max: 40
-  },
-  totalAssesment: {
-    type: String,
-    required: true,
-    max: 40
-  },
-  disability: {
     type: String,
     required: true,
     max: 40

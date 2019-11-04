@@ -179,6 +179,30 @@ class AdmissionForm extends Component {
       { label: 'Female', value: 'female' }
     ];
 
+    const courses = [
+      { label: 'Bachelor in Education ', value: 'educ' },
+      { label: 'Bachelor in Elementary Education ', value: 'elem_educ' },
+      {
+        label: 'Bachelor in Secondary Education Major in English ',
+        value: 'major_english'
+      },
+      {
+        label: 'Bachelor in Secondary Education Major in Mathematics',
+        value: 'major_mathematics'
+      },
+      {
+        label: 'Bachelor in Secondary Education Major in Filipino',
+        value: 'major_filipino'
+      },
+      { label: 'Bachelor of Science in Criminology ', value: 'criminology' },
+      { label: 'Bachelor of Science in Hospitality Management ', value: 'hrm' },
+      { label: 'Bachelor of Sciece in Entrepreneuship', value: 'entre' },
+      {
+        label: 'Bachelor of Science in Custom Administration ',
+        value: 'custom'
+      }
+    ];
+
     return (
       <div className="create-profile">
         <div className="container">
@@ -468,7 +492,6 @@ class AdmissionForm extends Component {
                   </div>
                   <div className="col-md-6">
                     <TextFieldGroup
-                      type="date"
                       placeholder="Year Graduated"
                       label="Year Graduated:"
                       name="hsYearGraduated"
@@ -490,7 +513,6 @@ class AdmissionForm extends Component {
                   </div>
                   <div className="col-md-6">
                     <TextFieldGroup
-                      type="date"
                       placeholder="Year Graduated"
                       label="Year Graduated:"
                       name="seniorYearGraduated"
@@ -512,7 +534,6 @@ class AdmissionForm extends Component {
                   </div>
                   <div className="col-md-6">
                     <TextFieldGroup
-                      type="date"
                       placeholder="Year Graduated"
                       label="Year Graduated:"
                       name="collegeYearGraduated"
@@ -552,9 +573,10 @@ class AdmissionForm extends Component {
                     />
                   </div>
                   <div className="col-md-7">
-                    <TextFieldGroup
-                      placeholder="Prefered Course"
-                      label="Prefered Course"
+                    <SelectListGroup
+                      options={courses}
+                      placeholder="Preferred Course"
+                      label="Preferred Course"
                       name="course1"
                       value={this.state.course1}
                       onChange={this.onChange}
@@ -562,9 +584,10 @@ class AdmissionForm extends Component {
                     />
                   </div>
                   <div className="col-md-7">
-                    <TextFieldGroup
-                      placeholder="Prefered Course 2"
-                      label="Prefered Course 2"
+                    <SelectListGroup
+                      options={courses}
+                      placeholder="Preferred Course 2"
+                      label="Preferred Course 2"
                       name="course2"
                       value={this.state.course2}
                       onChange={this.onChange}
@@ -572,9 +595,10 @@ class AdmissionForm extends Component {
                     />
                   </div>
                   <div className="col-md-7">
-                    <TextFieldGroup
-                      placeholder="Prefered Course 3"
-                      label="Prefered Course 3"
+                    <SelectListGroup
+                      options={courses}
+                      placeholder="Preferred Course 3"
+                      label="Preferred Course 3"
                       name="course3"
                       value={this.state.course3}
                       onChange={this.onChange}

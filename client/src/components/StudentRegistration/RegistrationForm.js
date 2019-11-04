@@ -12,30 +12,16 @@ class RegistrationForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      heiName: '',
-      heiUUI: '',
+      studentName: '',
+      accountNo: '',
       acadYear: '',
       studentId: '',
-      emailAdd: '',
-      lastName: '',
-      firstName: '',
-      middleName: '',
+      studentType: '',
+      semester: '',
       sex: '',
-      birthDate: '',
-      completeProgramName: '',
+      course: '',
+      major: '',
       yearLevel: '',
-      mothersLastName: '',
-      mothersGivenName: '',
-      mothersMiddleName: '',
-      fathersLastName: '',
-      fathersGivenName: '',
-      fathersMiddleName: '',
-      streetAndBarangay: '',
-      townAndMunicipality: '',
-      province: '',
-      zipCode: '',
-      totalAssesment: '',
-      disability: '',
       errors: {},
       isLoading: false
     };
@@ -55,30 +41,16 @@ class RegistrationForm extends Component {
     this.setState({ isLoading: true });
 
     const profileData = {
-      heiName: this.state.heiName,
-      heiUUI: this.state.heiUUI,
+      studentName: this.state.studentName,
+      accountNo: this.state.accountNo,
       acadYear: this.state.acadYear,
       studentId: this.state.studentId,
-      emailAdd: this.state.emailAdd,
-      lastName: this.state.lastName,
-      firstName: this.state.firstName,
-      middleName: this.state.middleName,
+      studentType: this.state.studentType,
+      semester: this.state.semester,
       sex: this.state.sex,
-      birthDate: this.state.birthDate,
-      completeProgramName: this.state.completeProgramName,
-      yearLevel: this.state.yearLevel,
-      mothersLastName: this.state.mothersLastName,
-      mothersGivenName: this.state.mothersGivenName,
-      mothersMiddleName: this.state.mothersMiddleName,
-      fathersLastName: this.state.fathersLastName,
-      fathersGivenName: this.state.fathersGivenName,
-      fathersMiddleName: this.state.fathersMiddleName,
-      streetAndBarangay: this.state.streetAndBarangay,
-      townAndMunicipality: this.state.townAndMunicipality,
-      province: this.state.province,
-      zipCode: this.state.zipCode,
-      totalAssesment: this.state.totalAssesment,
-      disability: this.state.disability
+      course: this.state.course,
+      major: this.state.major,
+      yearLevel: this.state.yearLevel
     };
 
     this.props.createProfile(profileData, this.props.history);
@@ -87,30 +59,16 @@ class RegistrationForm extends Component {
   onClear(e) {
     e.preventDefault();
     this.setState({
-      heiName: '',
-      heiUUI: '',
+      studentName: '',
+      accountNo: '',
       acadYear: '',
       studentId: '',
-      emailAdd: '',
-      lastName: '',
-      firstName: '',
-      middleName: '',
+      studentType: '',
+      semester: '',
       sex: '',
-      birthDate: '',
-      completeProgramName: '',
+      course: '',
+      major: '',
       yearLevel: '',
-      mothersLastName: '',
-      mothersGivenName: '',
-      mothersMiddleName: '',
-      fathersLastName: '',
-      fathersGivenName: '',
-      fathersMiddleName: '',
-      streetAndBarangay: '',
-      townAndMunicipality: '',
-      province: '',
-      zipCode: '',
-      totalAssesment: '',
-      disability: '',
       errors: {}
     });
   }
@@ -155,6 +113,27 @@ class RegistrationForm extends Component {
                 <div className="row mb-4">
                   <div className="col-md-4">
                     <TextFieldGroup
+                      placeholder="Student name"
+                      label="Student name:"
+                      name="studentName"
+                      value={this.state.studentName}
+                      onChange={this.onChange}
+                      error={errors.studentName}
+                    />
+                  </div>
+                  <div className="col-md-4" />
+                  <div className="col-md-4">
+                    <TextFieldGroup
+                      placeholder="Account #"
+                      label="Account #:"
+                      name="accountNo"
+                      value={this.state.accountNo}
+                      onChange={this.onChange}
+                      error={errors.accountNo}
+                    />
+                  </div>
+                  <div className="col-md-4">
+                    <TextFieldGroup
                       placeholder="Student id"
                       label="Student id:"
                       name="studentId"
@@ -163,92 +142,42 @@ class RegistrationForm extends Component {
                       error={errors.studentId}
                     />
                   </div>
-                  <div className="col-md-4">
-                    <TextFieldGroup
-                      placeholder="Email Address"
-                      label="Email Address:"
-                      name="emailAdd"
-                      value={this.state.emailAdd}
-                      onChange={this.onChange}
-                      error={errors.emailAdd}
-                      type="email"
-                    />
-                  </div>
-                </div>
-                <small className="text-muted">Student Information</small>
-                <hr className="mb-6" />
-                <div className="row mb-4">
-                  <div className="col-md-4">
-                    <TextFieldGroup
-                      placeholder="HEI UII"
-                      label="HEI UII:"
-                      name="heiUUI"
-                      value={this.state.heiUUI}
-                      onChange={this.onChange}
-                      error={errors.heiUUI}
-                    />
-                  </div>
-                  <div className="col-md-4">
-                    <TextFieldGroup
-                      placeholder="HEI Name"
-                      label="HEI Name:"
-                      name="heiName"
-                      value={this.state.heiName}
-                      onChange={this.onChange}
-                      error={errors.heiName}
-                    />
-                  </div>
-
+                  <div className="col-md-4" />
                   <div className="col-md-4">
                     <SelectListGroup
-                      placeholder="ACAD Year"
+                      placeholder="Academic Year"
                       name="acadYear"
-                      label="ACAD Year:"
+                      label="Academic Year:"
                       value={this.state.acadYear}
                       onChange={this.onChange}
                       options={options}
                       error={errors.acadYear}
                     />
                   </div>
-                </div>
-                <small className="text-muted">Personal Information</small>
-                <hr className="mb-6" />
-                <div className="row mb-4">
                   <div className="col-md-4">
                     <TextFieldGroup
-                      placeholder="Last name"
-                      label="Last name:"
-                      name="lastName"
-                      value={this.state.lastName}
+                      placeholder="Student Type"
+                      label="Student Type:"
+                      name="studentType"
+                      value={this.state.studentType}
                       onChange={this.onChange}
-                      error={errors.lastName}
+                      error={errors.studentType}
+                      type="email"
+                    />
+                  </div>
+                  <div className="col-md-4" />
+                  <div className="col-md-4">
+                    <TextFieldGroup
+                      placeholder="Semester"
+                      label="Semester:"
+                      name="semester"
+                      value={this.state.semester}
+                      onChange={this.onChange}
+                      error={errors.semester}
+                      type="email"
                     />
                   </div>
                   <div className="col-md-4">
-                    <TextFieldGroup
-                      placeholder="Given name"
-                      label="Given name:"
-                      name="firstName"
-                      value={this.state.firstName}
-                      onChange={this.onChange}
-                      error={errors.firstName}
-                    />
-                  </div>
-                  <div className="col-md-4">
-                    <TextFieldGroup
-                      placeholder="Middle name"
-                      label="Middle name:"
-                      name="middleName"
-                      value={this.state.middleName}
-                      onChange={this.onChange}
-                      error={errors.middleName}
-                    />
-                  </div>
-                </div>
-                <small className="text-muted">Student Data</small>
-                <hr className="mb-6" />
-                <div className="row mb-4">
-                  <div className="col-md-3">
                     <SelectListGroup
                       placeholder="Gender"
                       label="Gender:"
@@ -259,175 +188,82 @@ class RegistrationForm extends Component {
                       error={errors.sex}
                     />
                   </div>
-                  <div className="col-md-3">
+                  <div className="col-md-8" />
+                  <div className="col-md-4">
                     <TextFieldGroup
-                      placeholder="Birthdate"
-                      type="date"
-                      label="Birthdate:"
-                      name="birthDate"
-                      value={this.state.birthDate}
+                      placeholder="Course"
+                      label="Course:"
+                      name="course"
+                      value={this.state.course}
                       onChange={this.onChange}
-                      error={errors.birthDate}
+                      error={errors.course}
+                      type="email"
                     />
                   </div>
-                  <div className="col-md-3">
+                  <div className="col-md-8" />
+                  <div className="col-md-4">
                     <TextFieldGroup
-                      placeholder="Complete program name"
-                      label="Complete program name:"
-                      name="completeProgramName"
-                      value={this.state.completeProgramName}
+                      placeholder="Major"
+                      label="Major:"
+                      name="major"
+                      value={this.state.major}
                       onChange={this.onChange}
-                      error={errors.completeProgramName}
+                      error={errors.major}
+                      type="email"
                     />
                   </div>
-                  <div className="col-md-3">
+                  <div className="col-md-8" />
+                  <div className="col-md-4">
                     <TextFieldGroup
-                      placeholder="Year level"
-                      label="Year level:"
+                      placeholder="Year Level"
+                      label="Year Level:"
                       name="yearLevel"
                       value={this.state.yearLevel}
                       onChange={this.onChange}
                       error={errors.yearLevel}
+                      type="email"
                     />
                   </div>
-                </div>
-                <small className="text-muted">Father's information</small>
-                <hr className="mb-6" />
-                <div className="row mb-4">
-                  <div className="col-md-4">
-                    <TextFieldGroup
-                      placeholder="Father's Lastname"
-                      label="Father's Lastname:"
-                      name="fathersLastName"
-                      value={this.state.fathersLastName}
-                      onChange={this.onChange}
-                      error={errors.fathersLastName}
-                    />
-                  </div>
-                  <div className="col-md-4">
-                    <TextFieldGroup
-                      placeholder="Father's Given name"
-                      label="Father's Given name:"
-                      name="fathersGivenName"
-                      value={this.state.fathersGivenName}
-                      onChange={this.onChange}
-                      error={errors.fathersGivenName}
-                    />
-                  </div>
-                  <div className="col-md-4">
-                    <TextFieldGroup
-                      placeholder="Father's Middle name"
-                      label="Father's Middle name:"
-                      name="fathersMiddleName"
-                      value={this.state.fathersMiddleName}
-                      onChange={this.onChange}
-                      error={errors.fathersMiddleName}
-                    />
-                  </div>
-                </div>
-                <small className="text-muted">Mothers's information</small>
-                <hr className="mb-6" />
-                <div className="row mb-4">
-                  <div className="col-md-4">
-                    <TextFieldGroup
-                      placeholder="Mother's Lastname"
-                      label="Mother's Lastname:"
-                      name="mothersLastName"
-                      value={this.state.mothersLastName}
-                      onChange={this.onChange}
-                      error={errors.mothersLastName}
-                    />
-                  </div>
-                  <div className="col-md-4">
-                    <TextFieldGroup
-                      placeholder="Mother's Given name"
-                      label="Mother's Given name:"
-                      name="mothersGivenName"
-                      value={this.state.mothersGivenName}
-                      onChange={this.onChange}
-                      error={errors.mothersGivenName}
-                    />
-                  </div>
-                  <div className="col-md-4">
-                    <TextFieldGroup
-                      placeholder="Mother's Middle name"
-                      label="Mother's Middle name:"
-                      name="mothersMiddleName"
-                      value={this.state.mothersMiddleName}
-                      onChange={this.onChange}
-                      error={errors.mothersMiddleName}
-                    />
-                  </div>
-                </div>
-                <small className="text-muted">Permanent Address</small>
-                <hr className="mb-6" />
-                <div className="row mb-4">
-                  <div className="col-md-3">
-                    <TextFieldGroup
-                      placeholder="STREET / BARANGAY"
-                      label="STREET / BARANGAY:"
-                      name="streetAndBarangay"
-                      value={this.state.streetAndBarangay}
-                      onChange={this.onChange}
-                      error={errors.streetAndBarangay}
-                    />
-                  </div>
-                  <div className="col-md-3">
-                    <TextFieldGroup
-                      placeholder="TOWN/CITY/MUNICIPALITY"
-                      label="TOWN/CITY/MUNICIPALITY:"
-                      name="townAndMunicipality"
-                      value={this.state.townAndMunicipality}
-                      onChange={this.onChange}
-                      error={errors.townAndMunicipality}
-                    />
-                  </div>
-                  <div className="col-md-3">
-                    <TextFieldGroup
-                      placeholder="PROVINCE"
-                      label="PROVINCE:"
-                      name="province"
-                      value={this.state.province}
-                      onChange={this.onChange}
-                      error={errors.province}
-                    />
-                  </div>
-                  <div className="col-md-3">
-                    <TextFieldGroup
-                      placeholder="Zipcode"
-                      label="Zipcode:"
-                      name="zipCode"
-                      value={this.state.zipCode}
-                      onChange={this.onChange}
-                      error={errors.zipCode}
-                    />
-                  </div>
+                  <div className="col-md-8" />
                 </div>
 
-                <small className="text-muted">Others</small>
-                <hr className="mb-6" />
-                <div className="row">
-                  <div className="col-md-6">
-                    <TextFieldGroup
-                      placeholder="Total Assesment"
-                      label="Total Assesment:"
-                      name="totalAssesment"
-                      value={this.state.totalAssesment}
-                      onChange={this.onChange}
-                      error={errors.totalAssesment}
-                    />
-                  </div>
-                  <div className="col-md-6">
-                    <TextFieldGroup
-                      placeholder="DISABILITY"
-                      label="DISABILITY:"
-                      name="disability"
-                      value={this.state.disability}
-                      onChange={this.onChange}
-                      error={errors.disability}
-                    />
-                  </div>
-                </div>
+                <table className="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Subject Code</th>
+                      <th>Subject Description</th>
+                      <th>Units</th>
+                      <th>Day</th>
+                      <th>Time</th>
+                      <th>Room</th>
+                      <th>Section</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <p className="font-weight-bold mt-4">MISC / Tuition Fees</p>
+                <p>
+                  <small>Total load Units: </small>
+                </p>
+                <p>
+                  <small>Tuition Fees: </small>
+                </p>
+                <p>
+                  <small>Miscellaneous Fee: </small>
+                </p>
+                <p>Total Tuition Fee: </p>
+
                 {Object.keys(errors).length > 0 && (
                   <div
                     style={{

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import { withRouter } from 'react-router-dom';
@@ -130,8 +131,8 @@ class StudentSchedule extends Component {
                             {student.completeProgramName}
                           </td>
                           <td>
-                            <button className="btn btn-outline-success btn-sm">
-                              Register
+                            <button className="ml-2 btn btn-outline-info btn-sm">
+                              Download Forms
                             </button>
                           </td>
                         </tr>
