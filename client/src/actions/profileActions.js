@@ -11,7 +11,9 @@ import {
   GET_ADMISSION_STUDENTS,
   GET_ERRORS,
   SET_CURRENT_USER,
-  SET_ADMISSION_STATE
+  SET_ADMISSION_STATE,
+  SET_REGISTER_STATE,
+  SET_REGISTER_DOWNLOAD
 } from './types';
 
 export const getAllRegisteredAdmission = () => dispatch => {
@@ -128,7 +130,15 @@ export const createProfile = (profileData, history) => dispatch => {
   axios
     .post('api/profile', profileData)
     .then(res => {
-      history.push('/dashboard');
+      dispatch({
+        type: SET_REGISTER_STATE,
+        payload: true
+      });
+      dispatch({
+        type: SET_REGISTER_DOWNLOAD,
+        payload: res.data
+      });
+      history.push('/registered-printed');
     })
     .catch(err => {
       dispatch({

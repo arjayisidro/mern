@@ -2,6 +2,20 @@ const isEmpty = require('./is-empty');
 const Validator = require('validator');
 
 module.exports = function validateProfileInput(data) {
+  data.totalUnits = !isEmpty(data.totalUnits.toString())
+    ? data.totalUnits.toString()
+    : '';
+  data.totalTuition = !isEmpty(data.totalTuition.toString())
+    ? data.totalTuition.toString()
+    : '';
+  data.totalMisc = !isEmpty(data.totalMisc.toString())
+    ? data.totalMisc.toString()
+    : '';
+  data.totalTuitionFee = !isEmpty(data.totalTuitionFee.toString())
+    ? data.totalTuitionFee.toString()
+    : '';
+
+  data.admissionId = !isEmpty(data.admissionId) ? data.admissionId : '';
   data.studentName = !isEmpty(data.studentName) ? data.studentName : '';
   data.accountNo = !isEmpty(data.accountNo) ? data.accountNo : '';
   data.acadYear = !isEmpty(data.acadYear) ? data.acadYear : '';

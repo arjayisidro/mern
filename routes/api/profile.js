@@ -129,6 +129,8 @@ router.post(
     // Get fields
     const profileFields = {};
     profileFields.user = req.user.id;
+
+    if (req.body.admissionId) profileFields.admissionId = req.body.admissionId;
     if (req.body.studentName) profileFields.studentName = req.body.studentName;
     if (req.body.accountNo) profileFields.accountNo = req.body.accountNo;
     if (req.body.acadYear) profileFields.acadYear = req.body.acadYear;
@@ -140,6 +142,14 @@ router.post(
     if (req.body.course) profileFields.course = req.body.course;
     if (req.body.major) profileFields.major = req.body.major;
     if (req.body.yearLevel) profileFields.yearLevel = req.body.yearLevel;
+    if (req.body.totalUnits) profileFields.totalUnits = req.body.totalUnits;
+    if (req.body.totalTuition)
+      profileFields.totalTuition = req.body.totalTuition;
+    if (req.body.totalMisc) profileFields.totalMisc = req.body.totalMisc;
+    if (req.body.totalTuitionFee)
+      profileFields.totalTuitionFee = req.body.totalTuitionFee;
+    if (req.body.subjects)
+      profileFields.subjects = JSON.parse(req.body.subjects);
 
     Profile.findOne({ studentId: req.body.studentId })
       .then(profile => {
@@ -150,36 +160,41 @@ router.post(
           // Create
 
           // Save profile
-          new Profile(profileFields).save().then(profile => {
-            res.json(profile);
-            // Generate test SMTP service account from ethereal.email
-            // Only needed if you don't heeeave a real mail account for testing
+          new Profile(profileFields)
+            .save()
+            .then(profile => {
+              res.json(profile);
+              // Generate test SMTP service account from ethereal.email
+              // Only needed if you don't heeeave a real mail account for testing
 
-            // create reusable transporter object using the default SMTP transport
-            let transporter = nodemailer.createTransport({
-              service: 'Gmail',
-              secure: false,
-              // port: 25,
-              auth: {
-                user: 'tmcca.noreply@gmail.com',
-                pass: 'tmcaP@ss123'
-              },
-              tls: {
-                rejectUnauthorized: false
-              }
-            });
+              // create reusable transporter object using the default SMTP transport
+              let transporter = nodemailer.createTransport({
+                service: 'Gmail',
+                secure: false,
+                // port: 25,
+                auth: {
+                  user: 'tmcca.noreply@gmail.com',
+                  pass: 'tmcaP@ss123'
+                },
+                tls: {
+                  rejectUnauthorized: false
+                }
+              });
 
-            // send mail with defined transport object
-            transporter.sendMail({
-              from:
-                '"Trece Martirez City College 👻" <tmcca.noreply@gmail.com>', // sender address
-              to: profileFields.emailAdd,
-              subject: 'Welcome to Trece Martirez City College!',
-              text: `Welcome, ${profileFields.firstName}!`,
-              html:
-                'This is your e-mail confirmation that you have been enrolled to Trece martirez city college!'
+              // send mail with defined transport object
+              transporter.sendMail({
+                from:
+                  '"Trece Martirez City College 👻" <tmcca.noreply@gmail.com>', // sender address
+                to: profile.emailAdd,
+                subject: 'Welcome to Trece Martirez City College!',
+                text: `Welcome, ${profile.firstName}!`,
+                html:
+                  'This is your e-mail confirmation that you have been enrolled to Trece martirez city college!'
+              });
+            })
+            .catch(err => {
+              res.status(404).json(err);
             });
-          });
         }
       })
       .catch();

@@ -4,7 +4,9 @@ import {
   PROFILE_LOADING,
   GET_STUDENT,
   CLEAR_CURRENT_PROFILE,
-  SET_ADMISSION_STATE
+  SET_ADMISSION_STATE,
+  SET_REGISTER_STATE,
+  SET_REGISTER_DOWNLOAD
 } from '../actions/types';
 
 const initialState = {
@@ -12,7 +14,9 @@ const initialState = {
   profiles: null,
   loading: false,
   student: null,
-  isSuccess: false
+  isSuccess: false,
+  isRegister: false,
+  registeredData: null
 };
 
 export default function(state = initialState, action) {
@@ -22,10 +26,20 @@ export default function(state = initialState, action) {
         ...state,
         loading: true
       };
+    case SET_REGISTER_DOWNLOAD:
+      return {
+        ...state,
+        registeredData: action.payload
+      };
     case SET_ADMISSION_STATE:
       return {
         ...state,
         isSuccess: action.payload
+      };
+    case SET_REGISTER_STATE:
+      return {
+        ...state,
+        isRegister: action.payload
       };
     case GET_PROFILE:
       return {

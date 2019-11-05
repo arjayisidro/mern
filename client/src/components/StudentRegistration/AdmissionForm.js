@@ -200,6 +200,10 @@ class AdmissionForm extends Component {
       {
         label: 'Bachelor of Science in Custom Administration ',
         value: 'custom'
+      },
+      {
+        label: 'Bachelor in Public Administration ',
+        value: 'publicAdmin'
       }
     ];
 

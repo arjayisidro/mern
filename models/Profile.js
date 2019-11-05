@@ -3,6 +3,23 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const ProfileSchema = new Schema({
+  totalUnits: {
+    type: String
+  },
+  totalTuition: {
+    type: String
+  },
+  totalMisc: {
+    type: String
+  },
+  totalTuitionFee: {
+    type: String
+  },
+  admissionId: {
+    type: String,
+    required: true,
+    max: 40
+  },
   studentName: {
     type: String,
     required: true,
@@ -51,7 +68,8 @@ const ProfileSchema = new Schema({
     type: String,
     required: true,
     max: 40
-  }
+  },
+  subjects: [{}]
 });
 
 module.exports = Profile = mongoose.model('profile', ProfileSchema);

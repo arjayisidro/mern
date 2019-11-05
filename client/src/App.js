@@ -38,6 +38,7 @@ import RegistrationForm from './components/StudentRegistration/RegistrationForm'
 import AdmissionForm from './components/StudentRegistration/AdmissionForm';
 import StudentAdmission from './components/StudentActions/StudentAdmission';
 import StudentSchedule from './components/StudentActions/StudentSchedule';
+import RegisterPrinted from './components/printed-forms/RegisterPrinted';
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -90,6 +91,11 @@ class App extends Component {
                   exact
                   path="/admission-registered"
                   component={StudentAdmission}
+                />
+                <PrivateRoute
+                  exact
+                  path="/registered-printed"
+                  component={RegisterPrinted}
                 />
 
                 <PrivateRoute

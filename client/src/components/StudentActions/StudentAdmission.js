@@ -127,7 +127,10 @@ class StudentSchedule extends Component {
                           <td>
                             <Link
                               className="btn btn-outline-success btn-sm"
-                              to="/registration-form"
+                              to={{
+                                pathname: '/registration-form',
+                                state: student
+                              }}
                             >
                               Register
                             </Link>

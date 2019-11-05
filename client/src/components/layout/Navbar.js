@@ -54,20 +54,17 @@ class Navbar extends Component {
               aria-haspopup="true"
               aria-expanded="false"
             >
-              {isStudent ? 'Student Admission' : 'Admission'}
+              {isStudent ? 'Student Admission' : 'Registration'}
             </a>
             {!isStudent && (
               <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <Link className="dropdown-item" to="/admission-form">
-                  Admission Form
+                <Link className="dropdown-item mb-2" to="/registration-form">
+                  Register Student
                 </Link>
-                <Link className="dropdown-item" to="/registration-form">
-                  Register Form
-                </Link>
-                <Link className="dropdown-item" to="/admission-registered">
+                <Link className="dropdown-item mb-2" to="/admission-registered">
                   Admission List
                 </Link>
-                <Link className="dropdown-item" to="/student-list">
+                <Link className="dropdown-item mb-2" to="/student-list">
                   Student Master List
                 </Link>
               </div>

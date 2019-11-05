@@ -7,11 +7,18 @@ import SelectListGroup from '../common/SelectListGroup';
 import InputGroup from '../common/InputGroup';
 import { createProfile } from '../../actions/profileActions';
 import { withRouter } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import RegisterPrinted from '../printed-forms/RegisterPrinted';
+import ReactToPrint from 'react-to-print';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 class RegistrationForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      admissionId: '',
       studentName: '',
       accountNo: '',
       acadYear: '',
@@ -23,17 +30,108 @@ class RegistrationForm extends Component {
       major: '',
       yearLevel: '',
       errors: {},
+      isDownload: false,
+      subjects: [
+        {
+          subjectCode: '',
+          description: '',
+          units: '',
+          day: '',
+          time: '',
+          room: '',
+          section: ''
+        }
+      ],
+      totalUnits: '0',
+      totalTuition: '0',
+      totalMisc: '5000',
+      totalTuitionFee: '5000',
+
       isLoading: false
     };
 
-    this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onChange = this.onChange.bind(this);
+  }
+
+  printDocument() {
+    const input = document.getElementById('divToPrint');
+    html2canvas(input).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF();
+      pdf.addImage(imgData, 'JPEG', 0, 0);
+      // pdf.output('dataurlnewwindow');
+      pdf.save('download.pdf');
+    });
+  }
+
+  componentDidMount() {
+    if (this.props.location.state) {
+      const {
+        firstName,
+        lastName,
+        middleName,
+        sex,
+        admissionId
+      } = this.props.location.state;
+      this.setState({
+        admissionId: admissionId,
+        studentName: `${lastName}, ${firstName} ${middleName}`,
+        sex: sex
+      });
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors, isLoading: false });
     }
+
+    if (nextProps.profile.isRegister) {
+      const Msg = ({ closeToast }) => (
+        <div>
+          <div
+            className="card bg-success"
+            style={{ width: '18rem', border: 'none', borderStyle: 'none' }}
+          >
+            <div className="card-body">
+              <h5 className="card-title font-weight-bold">
+                Registration Successfully!
+              </h5>
+              <p className="card-text">
+                You will be redirecting to confirmation page.
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+
+      toast.success(<Msg />, {
+        position: 'top-center',
+        autoClose: false,
+        hideProgressBar: true,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: false
+      });
+    }
+  }
+
+  addClick() {
+    this.setState(prevState => ({
+      subjects: [
+        ...prevState.subjects,
+        {
+          subjectCode: '',
+          description: '',
+          units: '',
+          day: '',
+          time: '',
+          room: '',
+          section: ''
+        }
+      ]
+    }));
   }
 
   onSubmit(e) {
@@ -41,6 +139,7 @@ class RegistrationForm extends Component {
     this.setState({ isLoading: true });
 
     const profileData = {
+      admissionId: this.state.admissionId,
       studentName: this.state.studentName,
       accountNo: this.state.accountNo,
       acadYear: this.state.acadYear,
@@ -50,7 +149,12 @@ class RegistrationForm extends Component {
       sex: this.state.sex,
       course: this.state.course,
       major: this.state.major,
-      yearLevel: this.state.yearLevel
+      yearLevel: this.state.yearLevel,
+      totalUnits: this.state.totalUnits,
+      totalTuition: this.state.totalTuition,
+      totalMisc: this.state.totalMisc,
+      totalTuitionFee: this.state.totalTuitionFee,
+      subjects: JSON.stringify(this.state.subjects)
     };
 
     this.props.createProfile(profileData, this.props.history);
@@ -59,6 +163,7 @@ class RegistrationForm extends Component {
   onClear(e) {
     e.preventDefault();
     this.setState({
+      admissionId: '',
       studentName: '',
       accountNo: '',
       acadYear: '',
@@ -69,6 +174,10 @@ class RegistrationForm extends Component {
       course: '',
       major: '',
       yearLevel: '',
+      totalUnits: '0',
+      totalTuition: '0',
+      totalMisc: '5000',
+      totalTuitionFee: '5000',
       errors: {}
     });
   }
@@ -77,8 +186,42 @@ class RegistrationForm extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  subjectOnChange(i, e) {
+    const { name, value } = e.target;
+    let subjects = [...this.state.subjects];
+    subjects[i] = { ...subjects[i], [name]: value };
+    this.setState({ subjects });
+    let result = [
+      this.state.subjects.reduce((acc, n) => {
+        for (var prop in n) {
+          if (acc.hasOwnProperty(prop)) acc[prop] = +acc[prop] + +n[prop];
+          else acc[prop] = n[prop];
+        }
+        return acc;
+      }, {})
+    ];
+    let totalUnits = result[0].units;
+    let totalTuition = result[0].units * 100;
+    let totalMisc = 5000;
+    let totalTuitionFee = +totalTuition + +totalMisc;
+
+    this.setState({
+      totalUnits: totalUnits,
+      totalTuition: totalTuition,
+      totalMisc: totalMisc,
+      totalTuitionFee: totalTuitionFee
+    });
+  }
+
+  removeClick(i) {
+    let subjects = [...this.state.subjects];
+    subjects.splice(i, 1);
+    this.setState({ subjects });
+  }
+
   render() {
     const { errors, isLoading } = this.state;
+    const { isRegister } = this.props.profile;
 
     const options = [
       { label: '2015-2016', value: '2015-2016' },
@@ -101,6 +244,7 @@ class RegistrationForm extends Component {
       <div className="create-profile">
         <div className="container">
           <div className="row">
+            <ToastContainer closeButton={<span></span>} />
             <div className="col-md-12">
               <h2 className="display-5 text-left">Registration</h2>
               <small className="form-text text-italic text-left text-muted">
@@ -111,6 +255,17 @@ class RegistrationForm extends Component {
 
               <form onSubmit={this.onSubmit}>
                 <div className="row mb-4">
+                  <div className="col-md-4">
+                    <TextFieldGroup
+                      placeholder="Admission ID"
+                      label="Admission ID:"
+                      name="admissionId"
+                      value={this.state.admissionId}
+                      onChange={this.onChange}
+                      error={errors.admissionId}
+                    />
+                  </div>
+                  <div className="col-md-8" />
                   <div className="col-md-4">
                     <TextFieldGroup
                       placeholder="Student name"
@@ -162,7 +317,6 @@ class RegistrationForm extends Component {
                       value={this.state.studentType}
                       onChange={this.onChange}
                       error={errors.studentType}
-                      type="email"
                     />
                   </div>
                   <div className="col-md-4" />
@@ -174,7 +328,6 @@ class RegistrationForm extends Component {
                       value={this.state.semester}
                       onChange={this.onChange}
                       error={errors.semester}
-                      type="email"
                     />
                   </div>
                   <div className="col-md-4">
@@ -197,7 +350,6 @@ class RegistrationForm extends Component {
                       value={this.state.course}
                       onChange={this.onChange}
                       error={errors.course}
-                      type="email"
                     />
                   </div>
                   <div className="col-md-8" />
@@ -209,7 +361,6 @@ class RegistrationForm extends Component {
                       value={this.state.major}
                       onChange={this.onChange}
                       error={errors.major}
-                      type="email"
                     />
                   </div>
                   <div className="col-md-8" />
@@ -221,7 +372,6 @@ class RegistrationForm extends Component {
                       value={this.state.yearLevel}
                       onChange={this.onChange}
                       error={errors.yearLevel}
-                      type="email"
                     />
                   </div>
                   <div className="col-md-8" />
@@ -237,32 +387,128 @@ class RegistrationForm extends Component {
                       <th>Time</th>
                       <th>Room</th>
                       <th>Section</th>
+                      <th />
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
+                    {this.state.subjects.map((val, id) => (
+                      <tr key={id}>
+                        <td>
+                          <TextFieldGroup
+                            placeholder="Subject code"
+                            label="Subject code:"
+                            name="subjectCode"
+                            value={val.subjectCode || ''}
+                            onChange={this.subjectOnChange.bind(this, id)}
+                          />
+                        </td>
+                        <td>
+                          <TextFieldGroup
+                            placeholder="Description"
+                            label="Description:"
+                            name="description"
+                            value={val.description || ''}
+                            onChange={this.subjectOnChange.bind(this, id)}
+                          />
+                        </td>
+                        <td>
+                          <TextFieldGroup
+                            placeholder="Units"
+                            label="Units:"
+                            name="units"
+                            value={val.units || ''}
+                            onChange={this.subjectOnChange.bind(this, id)}
+                          />
+                        </td>
+                        <td>
+                          <TextFieldGroup
+                            placeholder="Day"
+                            label="Day:"
+                            name="day"
+                            value={val.day || ''}
+                            onChange={this.subjectOnChange.bind(this, id)}
+                          />
+                        </td>
+                        <td>
+                          <TextFieldGroup
+                            placeholder="Time"
+                            label="Time:"
+                            name="time"
+                            value={val.time || ''}
+                            onChange={this.subjectOnChange.bind(this, id)}
+                          />
+                        </td>
+                        <td>
+                          <TextFieldGroup
+                            placeholder="Room"
+                            label="Room:"
+                            name="room"
+                            value={val.room || ''}
+                            onChange={this.subjectOnChange.bind(this, id)}
+                          />
+                        </td>
+                        <td>
+                          <TextFieldGroup
+                            placeholder="Section"
+                            label="Section:"
+                            name="section"
+                            value={val.section || ''}
+                            onChange={this.subjectOnChange.bind(this, id)}
+                          />
+                        </td>
+                        <td>
+                          <button
+                            className="btn btn-outline-danger mt-4"
+                            onClick={this.removeClick.bind(this, id)}
+                            type="button"
+                          >
+                            {' '}
+                            <i class="fa fa-trash-o fa-lg"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
+                <button
+                  className="btn btn-outline-info"
+                  onClick={this.addClick.bind(this)}
+                  type="button"
+                >
+                  {' '}
+                  Add more Subject
+                </button>
 
                 <p className="font-weight-bold mt-4">MISC / Tuition Fees</p>
-                <p>
-                  <small>Total load Units: </small>
-                </p>
-                <p>
-                  <small>Tuition Fees: </small>
-                </p>
-                <p>
-                  <small>Miscellaneous Fee: </small>
-                </p>
-                <p>Total Tuition Fee: </p>
+                <div className="row">
+                  <div className="col-md-2">
+                    <small>Total load Units: </small>
+                  </div>
+                  <div className="col-md-4">
+                    <small>{this.state.totalUnits}</small>
+                  </div>
+                  <div className="col-md-6" />
+                  <div className="col-md-2">
+                    <small>Tuition Fees: </small>
+                  </div>
+                  <div className="col-md-4">
+                    <small>{this.state.totalTuition}</small>
+                  </div>
+                  <div className="col-md-6" />
+                  <div className="col-md-2">
+                    <small>Miscellaneous Fee: </small>
+                  </div>
+                  <div className="col-md-4">
+                    <small>{this.state.totalMisc}</small>
+                  </div>
+                  <div className="col-md-6" />
+                  <div className="col-md-2">
+                    <small>Total Tuition Fee: </small>
+                  </div>
+                  <div className="col-md-4">
+                    <small>{this.state.totalTuitionFee}</small>
+                  </div>
+                </div>
 
                 {Object.keys(errors).length > 0 && (
                   <div
