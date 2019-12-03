@@ -94,7 +94,7 @@ class App extends Component {
                 />
                 <PrivateRoute
                   exact
-                  path="/registered-printed"
+                  path="/registered-printed/:id"
                   component={RegisterPrinted}
                 />
 

@@ -7,7 +7,7 @@ import {
 const initialState = {
   loading: false,
   students: null,
-  admissionStudents: null
+  admissionStudents: []
 };
 
 export default function(state = initialState, action) {

@@ -66,7 +66,7 @@ class StudentSchedule extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-8">
-              <h3 className="mt-3">Student Admission Master List</h3>
+              <h3 className="mt-3">Registered Student Master List</h3>
             </div>
             <div className="col-md-4 mb-4">
               <form
@@ -92,14 +92,12 @@ class StudentSchedule extends Component {
             </div>
             <table className="table text-left">
               <thead className="thead-light">
-                <tr>
+                <tr className="text-center">
                   <th>Student ID</th>
-                  <th>Last name</th>
-                  <th>First name</th>
-                  <th>Middle name</th>
+                  <th>Full Name</th>
                   <th>Year Level</th>
                   <th>Program Name</th>
-                  <th />
+                  <th>Action</th>
                 </tr>
               </thead>
               {!studentList ? (
@@ -116,28 +114,37 @@ class StudentSchedule extends Component {
                     height: '50px'
                   }}
                 />
-              ) : (
+              ) : studentList.length > 0 ? (
                 <tbody className="">
                   {studentList &&
                     studentList.map(student => {
                       return (
-                        <tr>
+                        <tr className="text-center">
                           <td style={{ width: '10%' }}>{student.studentId}</td>
-                          <td>{student.lastName}</td>
-                          <td>{student.firstName}</td>
-                          <td style={{ width: '15%' }}>{student.middleName}</td>
+                          <td>{student.studentName}</td>
                           <td>{student.yearLevel}</td>
                           <td style={{ width: '15%' }}>
                             {student.completeProgramName}
                           </td>
                           <td>
-                            <button className="ml-2 btn btn-outline-info btn-sm">
+                            <Link
+                              className="ml-2 btn btn-outline-info btn-sm"
+                              to={`/registered-printed/${student._id}`}
+                            >
                               Download Forms
-                            </button>
+                            </Link>
                           </td>
                         </tr>
                       );
                     })}
+                </tbody>
+              ) : (
+                <tbody className="">
+                  <tr>
+                    <td />
+                    <td />
+                    <td>No Records Found.</td>
+                  </tr>
                 </tbody>
               )}
             </table>

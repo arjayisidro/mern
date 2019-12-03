@@ -8,26 +8,45 @@ import TextFieldGroup from '../common/TextFieldGroup';
 import logo from '../../img/logo.png';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { getAllStudents } from '../../actions/profileActions';
 
 class RegisterPrinted extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      registeredDataState: {}
+    };
   }
 
-  printDocument() {
-    const input = document.getElementById('divToPrint');
-    html2canvas(input).then(canvas => {
-      const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF();
-      pdf.addImage(imgData, 'JPEG', 0, 0);
-      // pdf.output('dataurlnewwindow');
-      pdf.save('download.pdf');
+  componentDidMount() {
+    this.props.getAllStudents();
+    const { registeredData } = this.props.profile;
+    const { id } = this.props.match.params;
+    if (registeredData && !id) {
+      this.setState({ registeredDataState: registeredData });
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { students } = nextProps.students;
+    const { id } = this.props.match.params;
+    if (students && students.length > 0) {
+      const data = students.find(x => x._id === id);
+      this.setState({ registeredDataState: data });
+    }
+  }
+
+  printDocument(registeredData) {
+    const studentId = registeredData ? registeredData.studentId : '';
+    var pdf = new jsPDF('l', 'mm', [500, 400]);
+    pdf.addHTML(document.getElementById('divToPrint'), function() {
+      pdf.save(`${studentId}.pdf`);
     });
   }
 
   render() {
-    const { registeredData } = this.props.profile;
+    const { registeredDataState } = this.state;
+    console.log(registeredDataState);
 
     return (
       <div className="registered-printed">
@@ -36,7 +55,7 @@ class RegisterPrinted extends Component {
             <div className="mb5">
               <button
                 className="btn btn-outline-info mb-4"
-                onClick={this.printDocument}
+                onClick={() => this.printDocument(registeredDataState)}
               >
                 Download
               </button>
@@ -60,40 +79,71 @@ class RegisterPrinted extends Component {
                 <hr className="mt-4" />
                 <div className="row mb-4">
                   <div className="col-md-12 ml-4 mt-4">
-                    STUDENT NAME:{' '}
-                    {registeredData ? registeredData.studentName : ''}
+                    <div className="row">
+                      <div className="col-md-3">STUDENT NAME: </div>
+                      <div className="col-md-6">
+                        {registeredDataState.studentName}
+                      </div>
+                    </div>
                   </div>
 
                   <div className="col-md-12 ml-4 mt-2">
-                    STUDENT NO. {registeredData ? registeredData.studentId : ''}
+                    <div className="row">
+                      <div className="col-md-3">STUDENT NO:</div>
+                      <div className="col-md-6">
+                        {registeredDataState.studentId}
+                      </div>
+                    </div>
                   </div>
 
                   <div className="col-md-12 ml-4 mt-2">
-                    COURSE {registeredData ? registeredData.course : ''}
+                    <div className="row">
+                      <div className="col-md-3">COURSE:</div>
+                      <div className="col-md-6">
+                        {registeredDataState.course}
+                      </div>
+                    </div>
                   </div>
 
                   <div className="col-md-12 ml-4 mt-2">
-                    STUDENT TYPE{' '}
-                    {registeredData ? registeredData.studentType : ''}
+                    <div className="row">
+                      <div className="col-md-3">STUDENT TYPE: </div>
+                      <div className="col-md-6">
+                        {registeredDataState.studentType}
+                      </div>
+                    </div>
                   </div>
 
                   <div className="col-md-12 ml-4 mt-2">
-                    MAJOR {registeredData ? registeredData.major : ''}
+                    <div className="row">
+                      <div className="col-md-3">MAJOR:</div>
+                      <div className="col-md-6">
+                        {registeredDataState.major}
+                      </div>
+                    </div>
                   </div>
 
                   <div className="col-md-12 ml-4 mt-2">
-                    GENDER {registeredData ? registeredData.sex : ''}
+                    <div className="row">
+                      <div className="col-md-3">GENDER:</div>
+                      <div className="col-md-6">{registeredDataState.sex}</div>
+                    </div>
                   </div>
 
                   <div className="col-md-12 ml-4 mt-2">
-                    LEVEL {registeredData ? registeredData.yearLevel : ''}
+                    <div className="row">
+                      <div className="col-md-3">LEVEL:</div>
+                      <div className="col-md-6">
+                        {registeredDataState.yearLevel}
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <hr className="mb-4 mt-4"></hr>
                 <div className="col-md-12">
                   <table className="table table-border ml-auto">
                     <thead>
-                      <tr>
+                      <tr className="text-center">
                         <th>CODE</th>
                         <th>DESCRIPTION</th>
                         <th>UNIT</th>
@@ -104,27 +154,22 @@ class RegisterPrinted extends Component {
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        {registeredData
-                          ? registeredData.subjects.map(subject => (
-                              <React.Fragment>
-                                <td>{subject.subjectCode || ''}</td>
-                                <td>{subject.description || ''}</td>
-                                <td>{subject.units || ''}</td>
-                                <td>{subject.day || ''}</td>
-                                <td>{subject.time || ''}</td>
-                                <td>{subject.room || ''}</td>
-                                <td>{subject.section || ''}</td>
-                              </React.Fragment>
-                            ))
-                          : ''}
-                      </tr>
-                      <tr>
+                      {registeredDataState.subjects &&
+                        registeredDataState.subjects.map(subject => (
+                          <tr className="text-center">
+                            <td>{subject.subjectCode || ''}</td>
+                            <td>{subject.description || ''}</td>
+                            <td>{subject.units || ''}</td>
+                            <td>{subject.day || ''}</td>
+                            <td>{subject.time || ''}</td>
+                            <td>{subject.room || ''}</td>
+                            <td>{subject.section || ''}</td>
+                          </tr>
+                        ))}
+                      <tr className="text-center">
                         <td></td>
                         <td className="text-right">Total Units</td>
-                        <td>
-                          {registeredData ? registeredData.totalUnits : ''}
-                        </td>
+                        <td>{registeredDataState.totalUnits}</td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -137,19 +182,28 @@ class RegisterPrinted extends Component {
                     <h5 className="text-center">{`>> TUITION FEES <<`}</h5>
                     <div className="card p-2">
                       <div className="col-md-12 mt-4">
-                        {`TUITION FEE ${
-                          registeredData ? registeredData.totalTuition : ''
-                        }` || ''}
+                        <div className="row">
+                          <div className="col-md-6">TUITION FEE:</div>
+                          <div className="col-md-6">
+                            {registeredDataState.totalTuition}
+                          </div>
+                        </div>
                       </div>
                       <div className="col-md-12 mt-4">
-                        {`MISCELLANEOUS FEE ${
-                          registeredData ? registeredData.totalMisc : ''
-                        }` || ''}
+                        <div className="row">
+                          <div className="col-md-6">MISCELLANEOUS FEE:</div>
+                          <div className="col-md-6">
+                            {registeredDataState.totalMisc}
+                          </div>
+                        </div>
                       </div>
                       <div className="col-md-12 mt-4">
-                        {`TOTAL TUITION FEE ${
-                          registeredData ? registeredData.totalTuitionFee : ''
-                        }` || ''}
+                        <div className="row">
+                          <div className="col-md-6">TOTAL TUITION FEE:</div>
+                          <div className="col-md-6">
+                            {registeredDataState.totalTuitionFee}
+                          </div>
+                        </div>
                       </div>
                       <div className="col-md-12 mt-4">RA 10931</div>
                     </div>
@@ -165,7 +219,8 @@ class RegisterPrinted extends Component {
 }
 
 RegisterPrinted.propTypes = {
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
+  students: PropTypes.array
 };
 
 RegisterPrinted.defaultProps = {
@@ -173,7 +228,11 @@ RegisterPrinted.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  profile: state.profile
+  profile: state.profile,
+  students: state.students
 });
 
-export default connect(mapStateToProps)(withRouter(RegisterPrinted));
+export default connect(
+  mapStateToProps,
+  { getAllStudents }
+)(withRouter(RegisterPrinted));

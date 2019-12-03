@@ -138,7 +138,6 @@ export const createProfile = (profileData, history) => dispatch => {
         type: SET_REGISTER_DOWNLOAD,
         payload: res.data
       });
-      history.push('/registered-printed');
     })
     .catch(err => {
       dispatch({

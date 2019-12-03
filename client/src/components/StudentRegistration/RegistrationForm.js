@@ -13,6 +13,7 @@ import RegisterPrinted from '../printed-forms/RegisterPrinted';
 import ReactToPrint from 'react-to-print';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { Link } from 'react-router-dom';
 
 class RegistrationForm extends Component {
   constructor(props) {
@@ -86,8 +87,11 @@ class RegistrationForm extends Component {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors, isLoading: false });
     }
+    const data = nextProps.profile.registeredData;
+    console.log(data);
+    const studentId = data && data._id;
 
-    if (nextProps.profile.isRegister) {
+    if (this.props.profile.isRegister) {
       const Msg = ({ closeToast }) => (
         <div>
           <div
@@ -98,9 +102,12 @@ class RegistrationForm extends Component {
               <h5 className="card-title font-weight-bold">
                 Registration Successfully!
               </h5>
-              <p className="card-text">
-                You will be redirecting to confirmation page.
-              </p>
+              <Link
+                className="text-white"
+                to={`/registered-printed/${studentId}`}
+              >
+                Please download your registration form here.
+              </Link>
             </div>
           </div>
         </div>
@@ -256,14 +263,20 @@ class RegistrationForm extends Component {
               <form onSubmit={this.onSubmit}>
                 <div className="row mb-4">
                   <div className="col-md-4">
-                    <TextFieldGroup
-                      placeholder="Admission ID"
-                      label="Admission ID:"
-                      name="admissionId"
-                      value={this.state.admissionId}
-                      onChange={this.onChange}
-                      error={errors.admissionId}
-                    />
+                    {this.state.admissionId ? (
+                      <label className="mt-4 mb-4">
+                        <strong>Admission Id:</strong> {this.state.admissionId}
+                      </label>
+                    ) : (
+                      <TextFieldGroup
+                        placeholder="Admission ID"
+                        label="Admission ID:"
+                        name="admissionId"
+                        value={this.state.admissionId}
+                        onChange={this.onChange}
+                        error={errors.admissionId}
+                      />
+                    )}
                   </div>
                   <div className="col-md-8" />
                   <div className="col-md-4">
@@ -413,6 +426,7 @@ class RegistrationForm extends Component {
                         </td>
                         <td>
                           <TextFieldGroup
+                            type="number"
                             placeholder="Units"
                             label="Units:"
                             name="units"

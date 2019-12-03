@@ -8,6 +8,7 @@ const nodemailer = require('nodemailer');
 const validateAdmissionInput = require('../../validation/admission');
 
 const Admission = require('../../models/Admission');
+const Profile = require('../../models/Profile');
 
 // Load user model
 const User = require('../../models/User');
@@ -21,7 +22,16 @@ router.get(
   (req, res) => {
     Admission.find({})
       .then(student => {
-        res.json(student);
+        Profile.find({}).then(registeredStudent => {
+          let returnData = student;
+          if (registeredStudent.length > 0) {
+            returnData = student.filter(
+              ({ admissionId: id1 }) =>
+                !registeredStudent.some(({ admissionId: id2 }) => id2 === id1)
+            );
+          }
+          res.json(returnData);
+        });
       })
       .catch(err => res.status(404).json(err));
   }

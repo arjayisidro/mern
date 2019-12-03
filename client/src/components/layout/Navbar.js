@@ -65,7 +65,7 @@ class Navbar extends Component {
                   Admission List
                 </Link>
                 <Link className="dropdown-item mb-2" to="/student-list">
-                  Student Master List
+                  Registered List
                 </Link>
               </div>
             )}

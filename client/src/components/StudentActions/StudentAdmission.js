@@ -29,7 +29,17 @@ class StudentSchedule extends Component {
     this.setState({ studentList: admissionStudents });
   }
 
-  onSubmit(e) {
+  onSubmit(e) {}
+
+  onClear(e) {
+    e.preventDefault();
+    this.setState({
+      errors: {}
+    });
+  }
+
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
     e.preventDefault();
     const { studentList, searchField } = this.state;
     const { admissionStudents } = this.props.students;
@@ -45,17 +55,6 @@ class StudentSchedule extends Component {
     if (searchField === '') {
       this.setState({ studentList: admissionStudents });
     }
-  }
-
-  onClear(e) {
-    e.preventDefault();
-    this.setState({
-      errors: {}
-    });
-  }
-
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
   }
 
   render() {
@@ -92,12 +91,12 @@ class StudentSchedule extends Component {
             </div>
             <table className="table text-left">
               <thead className="thead-light">
-                <tr>
+                <tr className="text-center">
                   <th>Admission ID</th>
                   <th>Last name</th>
                   <th>Given name</th>
                   <th>Middle name</th>
-                  <th />
+                  <th>Action</th>
                 </tr>
               </thead>
               {!studentList ? (
@@ -114,12 +113,12 @@ class StudentSchedule extends Component {
                     height: '50px'
                   }}
                 />
-              ) : (
+              ) : studentList.length > 0 ? (
                 <tbody className="">
                   {studentList &&
                     studentList.map(student => {
                       return (
-                        <tr>
+                        <tr className="text-center">
                           <td>{student.admissionId}</td>
                           <td>{student.lastName}</td>
                           <td>{student.firstName}</td>
@@ -138,6 +137,14 @@ class StudentSchedule extends Component {
                         </tr>
                       );
                     })}
+                </tbody>
+              ) : (
+                <tbody className="">
+                  <tr>
+                    <td />
+                    <td />
+                    <td>No Records Found.</td>
+                  </tr>
                 </tbody>
               )}
             </table>
