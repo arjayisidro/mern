@@ -25,6 +25,7 @@ class RegistrationForm extends Component {
       acadYear: '',
       studentId: '',
       studentType: '',
+      status: '',
       semester: '',
       sex: '',
       course: '',
@@ -47,7 +48,6 @@ class RegistrationForm extends Component {
       totalTuition: '0',
       totalMisc: '5000',
       totalTuitionFee: '5000',
-
       isLoading: false
     };
 
@@ -152,6 +152,7 @@ class RegistrationForm extends Component {
       acadYear: this.state.acadYear,
       studentId: this.state.studentId,
       studentType: this.state.studentType,
+      status: this.state.status,
       semester: this.state.semester,
       sex: this.state.sex,
       course: this.state.course,
@@ -176,6 +177,7 @@ class RegistrationForm extends Component {
       acadYear: '',
       studentId: '',
       studentType: '',
+      status: '',
       semester: '',
       sex: '',
       course: '',
@@ -242,6 +244,18 @@ class RegistrationForm extends Component {
       { label: '2024-2025', value: '2024-2025' }
     ];
 
+    const studentTypeOptions = [
+      { label: 'Irregular', value: 'irregular' },
+      { label: 'Regular', value: 'regular' },
+      { label: 'Transferee', value: 'transferee' },
+      { label: 'Freshman', value: 'freshman' }
+    ];
+
+    const statusOptions = [
+      { label: 'New', value: 'new' },
+      { label: 'Old', value: 'old' }
+    ];
+
     const gender = [
       { label: 'Male', value: 'male' },
       { label: 'Female', value: 'female' }
@@ -254,10 +268,6 @@ class RegistrationForm extends Component {
             <ToastContainer closeButton={<span></span>} />
             <div className="col-md-12">
               <h2 className="display-5 text-left">Registration</h2>
-              <small className="form-text text-italic text-left text-muted">
-                Please read the instructions in the General Instructions tab of
-                this template
-              </small>
               <hr className="mb-6" />
 
               <form onSubmit={this.onSubmit}>
@@ -323,12 +333,16 @@ class RegistrationForm extends Component {
                     />
                   </div>
                   <div className="col-md-4">
-                    <TextFieldGroup
+                    <SelectListGroup
                       placeholder="Student Type"
-                      label="Student Type:"
                       name="studentType"
+                      label="Student Type:"
                       value={this.state.studentType}
                       onChange={this.onChange}
+                      error={errors.studentType}
+                      value={this.state.studentType}
+                      onChange={this.onChange}
+                      options={studentTypeOptions}
                       error={errors.studentType}
                     />
                   </div>
@@ -343,6 +357,21 @@ class RegistrationForm extends Component {
                       error={errors.semester}
                     />
                   </div>
+                  <div className="col-md-4">
+                    <SelectListGroup
+                      placeholder="Status"
+                      name="status"
+                      label="Status:"
+                      value={this.state.status}
+                      onChange={this.onChange}
+                      error={errors.status}
+                      value={this.state.status}
+                      onChange={this.onChange}
+                      options={statusOptions}
+                      error={errors.status}
+                    />
+                  </div>
+                  <div className="col-md-8" />
                   <div className="col-md-4">
                     <SelectListGroup
                       placeholder="Gender"
@@ -506,7 +535,11 @@ class RegistrationForm extends Component {
                     <small>Tuition Fees: </small>
                   </div>
                   <div className="col-md-4">
-                    <small>{this.state.totalTuition}</small>
+                    <small>
+                      {this.state.totalTuition
+                        .toString()
+                        .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
+                    </small>
                   </div>
                   <div className="col-md-6" />
                   <div className="col-md-2">
@@ -584,7 +617,6 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(
-  mapStateToProps,
-  { createProfile }
-)(withRouter(RegistrationForm));
+export default connect(mapStateToProps, { createProfile })(
+  withRouter(RegistrationForm)
+);

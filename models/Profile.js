@@ -44,6 +44,10 @@ const ProfileSchema = new Schema({
     type: String,
     max: 40
   },
+  status: {
+    type: String,
+    max: 40
+  },
   semester: {
     type: String,
     required: true,

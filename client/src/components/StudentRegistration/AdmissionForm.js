@@ -214,10 +214,6 @@ class AdmissionForm extends Component {
             <ToastContainer />
             <div className="col-md-12">
               <h2 className="display-5 text-left">Admission</h2>
-              <small className="form-text text-italic text-left text-muted">
-                Please read the instructions in the General Instructions tab of
-                this template
-              </small>
               <hr className="mb-6" />
 
               <form onSubmit={this.onSubmit}>
@@ -612,7 +608,7 @@ class AdmissionForm extends Component {
                 </div>
 
                 {Object.keys(errors).length > 0 &&
-                  (!errors.admissionId && (
+                  !errors.admissionId && (
                     <div
                       style={{
                         width: '100%',
@@ -623,7 +619,7 @@ class AdmissionForm extends Component {
                     >
                       Please complete the required fields.
                     </div>
-                  ))}
+                  )}
                 <div className="row">
                   <div className="col-md-3 mt-4">
                     <button
@@ -672,7 +668,6 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(
-  mapStateToProps,
-  { createAdmission }
-)(withRouter(AdmissionForm));
+export default connect(mapStateToProps, { createAdmission })(
+  withRouter(AdmissionForm)
+);

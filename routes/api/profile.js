@@ -137,6 +137,7 @@ router.post(
 
     if (req.body.studentId) profileFields.studentId = req.body.studentId;
     if (req.body.studentType) profileFields.studentType = req.body.studentType;
+    if (req.body.status) profileFields.status = req.body.status;
     if (req.body.semester) profileFields.semester = req.body.semester;
     if (req.body.sex) profileFields.sex = req.body.sex;
     if (req.body.course) profileFields.course = req.body.course;

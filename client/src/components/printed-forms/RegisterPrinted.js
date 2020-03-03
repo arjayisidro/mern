@@ -68,7 +68,7 @@ class RegisterPrinted extends Component {
                 </div>
                 <div className="col-md-8">
                   <div className="card-body">
-                    <h1 className="card-title">TRECE MARTIREZ CITY COLLEGE</h1>
+                    <h1 className="card-title">TRECE MARTIRES CITY COLLEGE</h1>
                     <p className="card-text text-center">
                       Trece-Indang Rd., Brgy. Luciano Trece Martires City,
                       Cavite
@@ -185,7 +185,14 @@ class RegisterPrinted extends Component {
                         <div className="row">
                           <div className="col-md-6">TUITION FEE:</div>
                           <div className="col-md-6">
-                            {registeredDataState.totalTuition}
+                            P{' '}
+                            {registeredDataState.totalTuition &&
+                              registeredDataState.totalTuition
+                                .toString()
+                                .replace(
+                                  /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                                  ','
+                                )}
                           </div>
                         </div>
                       </div>
@@ -193,7 +200,14 @@ class RegisterPrinted extends Component {
                         <div className="row">
                           <div className="col-md-6">MISCELLANEOUS FEE:</div>
                           <div className="col-md-6">
-                            {registeredDataState.totalMisc}
+                            P{' '}
+                            {registeredDataState.totalMisc &&
+                              registeredDataState.totalMisc
+                                .toString()
+                                .replace(
+                                  /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                                  ','
+                                )}
                           </div>
                         </div>
                       </div>
@@ -201,7 +215,14 @@ class RegisterPrinted extends Component {
                         <div className="row">
                           <div className="col-md-6">TOTAL TUITION FEE:</div>
                           <div className="col-md-6">
-                            {registeredDataState.totalTuitionFee}
+                            P{' '}
+                            {registeredDataState.totalTuitionFee &&
+                              registeredDataState.totalTuitionFee
+                                .toString()
+                                .replace(
+                                  /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                                  ','
+                                )}
                           </div>
                         </div>
                       </div>
@@ -232,7 +253,6 @@ const mapStateToProps = state => ({
   students: state.students
 });
 
-export default connect(
-  mapStateToProps,
-  { getAllStudents }
-)(withRouter(RegisterPrinted));
+export default connect(mapStateToProps, { getAllStudents })(
+  withRouter(RegisterPrinted)
+);
