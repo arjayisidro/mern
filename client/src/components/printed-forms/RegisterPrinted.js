@@ -37,10 +37,10 @@ class RegisterPrinted extends Component {
   }
 
   printDocument(registeredData) {
-    const studentId = registeredData ? registeredData.studentId : '';
+    const studentName = registeredData ? registeredData.studentName : '';
     var pdf = new jsPDF('l', 'mm', [500, 400]);
     pdf.addHTML(document.getElementById('divToPrint'), function() {
-      pdf.save(`${studentId}.pdf`);
+      pdf.save(`${studentName}.pdf`);
     });
   }
 
@@ -59,6 +59,12 @@ class RegisterPrinted extends Component {
               >
                 Download
               </button>
+              <Link
+                className="btn btn-outline-secondary mb-4 ml-2"
+                to="/student-list"
+              >
+                Back
+              </Link>
             </div>
             <div className="card mb-3" id="divToPrint">
               <div className="row no-gutters">

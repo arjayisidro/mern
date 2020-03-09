@@ -5,6 +5,7 @@ import TextFieldGroup from '../common/TextFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import SelectListGroup from '../common/SelectListGroup';
 import InputGroup from '../common/InputGroup';
+import { Link } from 'react-router-dom';
 import { createAdmission } from '../../actions/profileActions';
 import { withRouter } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
@@ -56,6 +57,12 @@ class AdmissionForm extends Component {
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    if (this.props.location.state) {
+      this.setState({ ...this.props.location.state });
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -607,24 +614,32 @@ class AdmissionForm extends Component {
                   </div>
                 </div>
 
-                {Object.keys(errors).length > 0 &&
-                  !errors.admissionId && (
-                    <div
-                      style={{
-                        width: '100%',
-                        marginTop: '.25rem',
-                        fontSize: '80%',
-                        color: '#dc3545'
-                      }}
-                    >
-                      Please complete the required fields.
-                    </div>
-                  )}
+                {Object.keys(errors).length > 0 && !errors.admissionId && (
+                  <div
+                    style={{
+                      width: '100%',
+                      marginTop: '.25rem',
+                      fontSize: '80%',
+                      color: '#dc3545'
+                    }}
+                  >
+                    Please complete the required fields.
+                  </div>
+                )}
                 <div className="row">
+                  <div className="col-md-3 mt-4">
+                    <Link
+                      style={{ width: '100%' }}
+                      className="btn btn-secondary float-right"
+                      to="/admission-registered"
+                    >
+                      Back
+                    </Link>
+                  </div>
                   <div className="col-md-3 mt-4">
                     <button
                       style={{ width: '100%' }}
-                      className="btn btn-secondary float-right"
+                      className="btn btn-info float-right"
                       onClick={event => this.onClear(event)}
                     >
                       Clear

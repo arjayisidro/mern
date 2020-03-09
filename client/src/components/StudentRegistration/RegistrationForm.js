@@ -73,12 +73,41 @@ class RegistrationForm extends Component {
         lastName,
         middleName,
         sex,
-        admissionId
+        admissionId,
+        studentName,
+        studentId,
+        accountNo,
+        semester,
+        course,
+        major,
+        yearLevel,
+        totalUnits,
+        totalTuition,
+        subjects
       } = this.props.location.state;
       this.setState({
         admissionId: admissionId,
-        studentName: `${lastName}, ${firstName} ${middleName}`,
-        sex: sex
+        studentName: studentName || `${lastName}, ${firstName} ${middleName}`,
+        sex: sex,
+        studentId: studentId || '',
+        accountNo: accountNo || '',
+        semester: semester || '',
+        course: course || '',
+        major: major || '',
+        yearLevel: yearLevel || '',
+        totalUnits: totalUnits || 0,
+        totalTuition: totalTuition || 0,
+        subjects: subjects || [
+          {
+            subjectCode: '',
+            description: '',
+            units: '',
+            day: '',
+            time: '',
+            room: '',
+            section: ''
+          }
+        ]
       });
     }
   }
@@ -88,7 +117,6 @@ class RegistrationForm extends Component {
       this.setState({ errors: nextProps.errors, isLoading: false });
     }
     const data = nextProps.profile.registeredData;
-    console.log(data);
     const studentId = data && data._id;
 
     if (this.props.profile.isRegister) {
@@ -571,9 +599,18 @@ class RegistrationForm extends Component {
                 )}
                 <div className="row">
                   <div className="col-md-3 mt-4">
-                    <button
+                    <Link
                       style={{ width: '100%' }}
                       className="btn btn-secondary float-right"
+                      to="/student-list"
+                    >
+                      Back
+                    </Link>
+                  </div>
+                  <div className="col-md-3 mt-4">
+                    <button
+                      style={{ width: '100%' }}
+                      className="btn btn-info float-right"
                       onClick={event => this.onClear(event)}
                     >
                       Clear

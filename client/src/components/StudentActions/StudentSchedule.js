@@ -128,10 +128,19 @@ class StudentSchedule extends Component {
                           </td>
                           <td>
                             <Link
-                              className="ml-2 btn btn-outline-info btn-sm"
+                              className="ml-2 btn btn-outline-warning btn-sm"
                               to={`/registered-printed/${student._id}`}
                             >
                               Download Forms
+                            </Link>
+                            <Link
+                              className="ml-2 btn btn-outline-info btn-sm"
+                              to={{
+                                pathname: '/registration-form',
+                                state: student
+                              }}
+                            >
+                              Update
                             </Link>
                           </td>
                         </tr>
@@ -166,7 +175,6 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(
-  mapStateToProps,
-  { getAllStudents }
-)(withRouter(StudentSchedule));
+export default connect(mapStateToProps, { getAllStudents })(
+  withRouter(StudentSchedule)
+);
