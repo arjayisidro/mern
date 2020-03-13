@@ -152,53 +152,67 @@ router.post(
     if (req.body.subjects)
       profileFields.subjects = JSON.parse(req.body.subjects);
 
-    Profile.findOne({ studentId: req.body.studentId })
-      .then(profile => {
-        if (profile) {
-          errors.studentId = 'The Student Id already registered';
-          res.status(400).json(errors);
-        } else {
-          // Create
-
-          // Save profile
-          new Profile(profileFields)
-            .save()
-            .then(profile => {
-              res.json(profile);
-              // Generate test SMTP service account from ethereal.email
-              // Only needed if you don't heeeave a real mail account for testing
-
-              // create reusable transporter object using the default SMTP transport
-              let transporter = nodemailer.createTransport({
-                service: 'Gmail',
-                secure: false,
-                // port: 25,
-                auth: {
-                  user: 'tmcca.noreply@gmail.com',
-                  pass: 'tmcaP@ss123'
-                },
-                tls: {
-                  rejectUnauthorized: false
-                }
-              });
-
-              // send mail with defined transport object
-              transporter.sendMail({
-                from:
-                  '"Trece Martirez City College 👻" <tmcca.noreply@gmail.com>', // sender address
-                to: profile.emailAdd,
-                subject: 'Welcome to Trece Martirez City College!',
-                text: `Welcome, ${profile.firstName}!`,
-                html:
-                  'This is your e-mail confirmation that you have been enrolled to Trece martirez city college!'
-              });
-            })
-            .catch(err => {
-              res.status(404).json(err);
-            });
+    if (req.body.isUpdate) {
+      Profile.findOneAndUpdate(
+        { studentId: req.body.studentId },
+        req.body,
+        { new: true },
+        (err, profileUpdate) => {
+          if (err) {
+            throw 'Error on updating the data!';
+          }
+          res.json(profileUpdate);
         }
-      })
-      .catch();
+      );
+    } else {
+      Profile.findOne({ studentId: req.body.studentId })
+        .then(profile => {
+          if (profile && !req.body.isUpdate) {
+            errors.studentId = 'The Student ID is already registered';
+            res.status(400).json(errors);
+          } else {
+            // Create
+
+            // Save profile
+            new Profile(profileFields)
+              .save()
+              .then(profile => {
+                res.json(profile);
+                // Generate test SMTP service account from ethereal.email
+                // Only needed if you don't heeeave a real mail account for testing
+
+                // create reusable transporter object using the default SMTP transport
+                let transporter = nodemailer.createTransport({
+                  service: 'Gmail',
+                  secure: false,
+                  // port: 25,
+                  auth: {
+                    user: 'tmcca.noreply@gmail.com',
+                    pass: 'tmcaP@ss123'
+                  },
+                  tls: {
+                    rejectUnauthorized: false
+                  }
+                });
+
+                // send mail with defined transport object
+                transporter.sendMail({
+                  from:
+                    '"Trece Martirez City College 👻" <tmcca.noreply@gmail.com>', // sender address
+                  to: profile.emailAdd,
+                  subject: 'Welcome to Trece Martirez City College!',
+                  text: `Welcome, ${profile.firstName}!`,
+                  html:
+                    'This is your e-mail confirmation that you have been enrolled to Trece martirez city college!'
+                });
+              })
+              .catch(err => {
+                res.status(404).json(err);
+              });
+          }
+        })
+        .catch();
+    }
   }
 );
 

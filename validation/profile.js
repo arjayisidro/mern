@@ -30,6 +30,12 @@ module.exports = function validateProfileInput(data) {
   let errors = {};
 
   for (const key in data) {
+    if (typeof data[key] === 'boolean') {
+      return {
+        errors,
+        isValid: isEmpty(errors)
+      };
+    }
     if (Validator.isEmpty(data[key])) {
       errors[key] = `This field is required.`;
     }

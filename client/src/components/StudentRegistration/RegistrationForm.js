@@ -48,7 +48,8 @@ class RegistrationForm extends Component {
       totalTuition: '0',
       totalMisc: '5000',
       totalTuitionFee: '5000',
-      isLoading: false
+      isLoading: false,
+      isUpdate: false
     };
 
     this.onSubmit = this.onSubmit.bind(this);
@@ -80,23 +81,28 @@ class RegistrationForm extends Component {
         semester,
         course,
         major,
-        yearLevel,
+        acadYear,
         totalUnits,
         totalTuition,
-        subjects
+        subjects,
+        studentType,
+        status
       } = this.props.location.state;
       this.setState({
         admissionId: admissionId,
         studentName: studentName || `${lastName}, ${firstName} ${middleName}`,
         sex: sex,
         studentId: studentId || '',
+        studentType: studentType || '',
         accountNo: accountNo || '',
         semester: semester || '',
+        status: status || '',
         course: course || '',
         major: major || '',
-        yearLevel: yearLevel || '',
+        acadYear: acadYear || '',
         totalUnits: totalUnits || 0,
         totalTuition: totalTuition || 0,
+        isUpdate: true,
         subjects: subjects || [
           {
             subjectCode: '',
@@ -119,25 +125,38 @@ class RegistrationForm extends Component {
     const data = nextProps.profile.registeredData;
     const studentId = data && data._id;
 
-    if (this.props.profile.isRegister) {
+    if (this.props.profile.isRegister || this.props.profile.isUpdateSuccess) {
       const Msg = ({ closeToast }) => (
         <div>
-          <div
-            className="card bg-success"
-            style={{ width: '18rem', border: 'none', borderStyle: 'none' }}
-          >
-            <div className="card-body">
-              <h5 className="card-title font-weight-bold">
-                Registration Successfully!
-              </h5>
-              <Link
-                className="text-white"
-                to={`/registered-printed/${studentId}`}
-              >
-                Please download your registration form here.
-              </Link>
+          {this.state.isUpdate ? (
+            <div
+              className="card bg-info"
+              style={{ width: '18rem', border: 'none', borderStyle: 'none' }}
+            >
+              <div className="card-body">
+                <h5 className="card-title font-weight-bold">
+                  Updated Successfully!
+                </h5>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div
+              className="card bg-success"
+              style={{ width: '18rem', border: 'none', borderStyle: 'none' }}
+            >
+              <div className="card-body">
+                <h5 className="card-title font-weight-bold">
+                  Registration Successfully!
+                </h5>
+                <Link
+                  className="text-white"
+                  to={`/registered-printed/${studentId}`}
+                >
+                  Please download your registration form here.
+                </Link>
+              </div>
+            </div>
+          )}
         </div>
       );
 
@@ -190,7 +209,8 @@ class RegistrationForm extends Component {
       totalTuition: this.state.totalTuition,
       totalMisc: this.state.totalMisc,
       totalTuitionFee: this.state.totalTuitionFee,
-      subjects: JSON.stringify(this.state.subjects)
+      subjects: JSON.stringify(this.state.subjects),
+      isUpdate: this.state.isUpdate
     };
 
     this.props.createProfile(profileData, this.props.history);

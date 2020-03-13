@@ -123,9 +123,7 @@ class StudentSchedule extends Component {
                           <td style={{ width: '10%' }}>{student.studentId}</td>
                           <td>{student.studentName}</td>
                           <td>{student.yearLevel}</td>
-                          <td style={{ width: '15%' }}>
-                            {student.completeProgramName}
-                          </td>
+                          <td style={{ width: '15%' }}>{student.course}</td>
                           <td>
                             <Link
                               className="ml-2 btn btn-outline-warning btn-sm"

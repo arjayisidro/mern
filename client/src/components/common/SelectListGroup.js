@@ -9,7 +9,8 @@ const SelectListGroup = ({
   error,
   info,
   onChange,
-  options
+  options,
+  disabled
 }) => {
   const selectOptions = options.map(option => (
     <option key={option.label} value={option.value}>
@@ -26,6 +27,7 @@ const SelectListGroup = ({
         name={name}
         value={value}
         onChange={onChange}
+        disabled={disabled}
       >
         {selectOptions}
       </select>

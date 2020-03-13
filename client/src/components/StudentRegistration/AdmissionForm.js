@@ -52,7 +52,8 @@ class AdmissionForm extends Component {
       course2: '',
       course3: '',
       errors: {},
-      isLoading: false
+      isLoading: false,
+      disable: false
     };
 
     this.onChange = this.onChange.bind(this);
@@ -62,6 +63,7 @@ class AdmissionForm extends Component {
   componentDidMount() {
     if (this.props.location.state) {
       this.setState({ ...this.props.location.state });
+      this.setState({ disable: true });
     }
   }
 
@@ -235,6 +237,7 @@ class AdmissionForm extends Component {
                       value={this.state.lastName}
                       onChange={this.onChange}
                       error={errors.lastName}
+                      disabled={this.state.disable}
                     />
                   </div>
                   <div className="col-md-4">
@@ -245,6 +248,7 @@ class AdmissionForm extends Component {
                       value={this.state.firstName}
                       onChange={this.onChange}
                       error={errors.firstName}
+                      disabled={this.state.disable}
                     />
                   </div>
                   <div className="col-md-4">
@@ -255,6 +259,7 @@ class AdmissionForm extends Component {
                       value={this.state.middleName}
                       onChange={this.onChange}
                       error={errors.middleName}
+                      disabled={this.state.disable}
                     />
                   </div>
                 </div>
@@ -268,6 +273,7 @@ class AdmissionForm extends Component {
                       onChange={this.onChange}
                       options={gender}
                       error={errors.sex}
+                      disabled={this.state.disable}
                     />
                   </div>
                   <div className="col-md-3">
@@ -279,6 +285,7 @@ class AdmissionForm extends Component {
                       value={this.state.birthDate}
                       onChange={this.onChange}
                       error={errors.birthDate}
+                      disabled={this.state.disable}
                     />
                   </div>
                   <div className="col-md-2">
@@ -289,6 +296,7 @@ class AdmissionForm extends Component {
                       value={this.state.civilStatus}
                       onChange={this.onChange}
                       error={errors.civilStatus}
+                      disabled={this.state.disable}
                     />
                   </div>
                   <div className="col-md-3">
@@ -299,6 +307,7 @@ class AdmissionForm extends Component {
                       value={this.state.cellNumber}
                       onChange={this.onChange}
                       error={errors.cellNumber}
+                      disabled={this.state.disable}
                     />
                   </div>
                   <div className="col-md-2">
@@ -309,6 +318,7 @@ class AdmissionForm extends Component {
                       value={this.state.religion}
                       onChange={this.onChange}
                       error={errors.religion}
+                      disabled={this.state.disable}
                     />
                   </div>
                   <div className="col-md-3">
@@ -319,6 +329,7 @@ class AdmissionForm extends Component {
                       value={this.state.bplace}
                       onChange={this.onChange}
                       error={errors.bplace}
+                      disabled={this.state.disable}
                     />
                   </div>
                 </div>
@@ -333,6 +344,7 @@ class AdmissionForm extends Component {
                       value={this.state.street}
                       onChange={this.onChange}
                       error={errors.street}
+                      disabled={this.state.disable}
                     />
                   </div>
                   <div className="col-md-3">
@@ -343,6 +355,7 @@ class AdmissionForm extends Component {
                       value={this.state.barangay}
                       onChange={this.onChange}
                       error={errors.barangay}
+                      disabled={this.state.disable}
                     />
                   </div>
                   <div className="col-md-3">
@@ -353,6 +366,7 @@ class AdmissionForm extends Component {
                       value={this.state.municipality}
                       onChange={this.onChange}
                       error={errors.municipality}
+                      disabled={this.state.disable}
                     />
                   </div>
                   <div className="col-md-3">
@@ -363,6 +377,7 @@ class AdmissionForm extends Component {
                       value={this.state.province}
                       onChange={this.onChange}
                       error={errors.province}
+                      disabled={this.state.disable}
                     />
                   </div>
                   <div className="col-md-3">
@@ -373,6 +388,7 @@ class AdmissionForm extends Component {
                       value={this.state.zipCode}
                       onChange={this.onChange}
                       error={errors.zipCode}
+                      disabled={this.state.disable}
                     />
                   </div>
                   <div className="col-md-3">
@@ -383,6 +399,7 @@ class AdmissionForm extends Component {
                       value={this.state.learnersPreference}
                       onChange={this.onChange}
                       error={errors.learnersPreference}
+                      disabled={this.state.disable}
                     />
                   </div>
                 </div>
@@ -397,6 +414,7 @@ class AdmissionForm extends Component {
                       value={this.state.mothersLastName}
                       onChange={this.onChange}
                       error={errors.mothersLastName}
+                      disabled={this.state.disable}
                     />
                   </div>
                   <div className="col-md-3">
@@ -407,6 +425,7 @@ class AdmissionForm extends Component {
                       value={this.state.mothersFirstName}
                       onChange={this.onChange}
                       error={errors.mothersFirstName}
+                      disabled={this.state.disable}
                     />
                   </div>
                   <div className="col-md-3">
@@ -417,6 +436,7 @@ class AdmissionForm extends Component {
                       value={this.state.mothersMiddleName}
                       onChange={this.onChange}
                       error={errors.mothersMiddleName}
+                      disabled={this.state.disable}
                     />
                   </div>
                   <div className="col-md-3">
@@ -427,6 +447,7 @@ class AdmissionForm extends Component {
                       value={this.state.occupation}
                       onChange={this.onChange}
                       error={errors.occupation}
+                      disabled={this.state.disable}
                     />
                   </div>
                 </div>
@@ -441,6 +462,7 @@ class AdmissionForm extends Component {
                       value={this.state.fathersLastName}
                       onChange={this.onChange}
                       error={errors.fathersLastName}
+                      disabled={this.state.disable}
                     />
                   </div>
                   <div className="col-md-3">
@@ -451,6 +473,7 @@ class AdmissionForm extends Component {
                       value={this.state.fathersFirstName}
                       onChange={this.onChange}
                       error={errors.fathersFirstName}
+                      disabled={this.state.disable}
                     />
                   </div>
                   <div className="col-md-3">
@@ -461,6 +484,7 @@ class AdmissionForm extends Component {
                       value={this.state.fathersMiddleName}
                       onChange={this.onChange}
                       error={errors.fathersMiddleName}
+                      disabled={this.state.disable}
                     />
                   </div>
                   <div className="col-md-3">
@@ -471,6 +495,7 @@ class AdmissionForm extends Component {
                       value={this.state.fatherOccupation}
                       onChange={this.onChange}
                       error={errors.fatherOccupation}
+                      disabled={this.state.disable}
                     />
                   </div>
                   <div className="col-md-4">
@@ -481,6 +506,7 @@ class AdmissionForm extends Component {
                       value={this.state.houseHoldIncome}
                       onChange={this.onChange}
                       error={errors.houseHoldIncome}
+                      disabled={this.state.disable}
                     />
                   </div>
                 </div>
@@ -495,6 +521,7 @@ class AdmissionForm extends Component {
                       value={this.state.highSchool}
                       onChange={this.onChange}
                       error={errors.highSchool}
+                      disabled={this.state.disable}
                     />
                   </div>
                   <div className="col-md-6">
@@ -505,6 +532,7 @@ class AdmissionForm extends Component {
                       value={this.state.hsYearGraduated}
                       onChange={this.onChange}
                       error={errors.hsYearGraduated}
+                      disabled={this.state.disable}
                     />
                   </div>
 
@@ -516,6 +544,7 @@ class AdmissionForm extends Component {
                       value={this.state.seniorHighSchool}
                       onChange={this.onChange}
                       error={errors.seniorHighSchool}
+                      disabled={this.state.disable}
                     />
                   </div>
                   <div className="col-md-6">
@@ -526,6 +555,7 @@ class AdmissionForm extends Component {
                       value={this.state.seniorYearGraduated}
                       onChange={this.onChange}
                       error={errors.seniorYearGraduated}
+                      disabled={this.state.disable}
                     />
                   </div>
 
@@ -537,6 +567,7 @@ class AdmissionForm extends Component {
                       value={this.state.college}
                       onChange={this.onChange}
                       error={errors.college}
+                      disabled={this.state.disable}
                     />
                   </div>
                   <div className="col-md-6">
@@ -547,6 +578,7 @@ class AdmissionForm extends Component {
                       value={this.state.collegeYearGraduated}
                       onChange={this.onChange}
                       error={errors.collegeYearGraduated}
+                      disabled={this.state.disable}
                     />
                   </div>
                   <div className="col-md-6">
@@ -557,6 +589,7 @@ class AdmissionForm extends Component {
                       value={this.state.courseMajor}
                       onChange={this.onChange}
                       error={errors.courseMajor}
+                      disabled={this.state.disable}
                     />
                   </div>
                   <div className="col-md-6">
@@ -567,6 +600,7 @@ class AdmissionForm extends Component {
                       value={this.state.semesterSchoolYear}
                       onChange={this.onChange}
                       error={errors.semesterSchoolYear}
+                      disabled={this.state.disable}
                     />
                   </div>
                   <div className="col-md-6">
@@ -577,6 +611,7 @@ class AdmissionForm extends Component {
                       value={this.state.requirements}
                       onChange={this.onChange}
                       error={errors.requirements}
+                      disabled={this.state.disable}
                     />
                   </div>
                   <div className="col-md-7">
@@ -588,6 +623,7 @@ class AdmissionForm extends Component {
                       value={this.state.course1}
                       onChange={this.onChange}
                       error={errors.course1}
+                      disabled={this.state.disable}
                     />
                   </div>
                   <div className="col-md-7">
@@ -599,6 +635,7 @@ class AdmissionForm extends Component {
                       value={this.state.course2}
                       onChange={this.onChange}
                       error={errors.course2}
+                      disabled={this.state.disable}
                     />
                   </div>
                   <div className="col-md-7">
@@ -610,6 +647,7 @@ class AdmissionForm extends Component {
                       value={this.state.course3}
                       onChange={this.onChange}
                       error={errors.course3}
+                      disabled={this.state.disable}
                     />
                   </div>
                 </div>
@@ -641,6 +679,7 @@ class AdmissionForm extends Component {
                       style={{ width: '100%' }}
                       className="btn btn-info float-right"
                       onClick={event => this.onClear(event)}
+                      disabled={this.state.disable}
                     >
                       Clear
                     </button>
@@ -650,7 +689,7 @@ class AdmissionForm extends Component {
                     <button
                       type="submit"
                       className="btn btn-primary btn-block mt-4 float-right"
-                      disabled={isLoading}
+                      disabled={isLoading || this.state.disable}
                     >
                       {isLoading ? (
                         <span
